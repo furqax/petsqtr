@@ -583,7 +583,7 @@ Widget text(
     overflow: TextOverflow.ellipsis,
     style: TextStyle(
       fontFamily: fontFamily ?? null,
-      fontWeight: bold ? FontWeight.bold : null,
+      fontWeight: bold ? FontWeight.w900 : null,
       fontSize: fontSize,
       color: textColor ?? appStore.textSecondaryColor,
       height: 1.5,

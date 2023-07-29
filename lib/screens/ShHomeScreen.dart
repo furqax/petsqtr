@@ -434,48 +434,52 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
+                      SizedBox(height: 40),
+
                       Stack(
                         children: <Widget>[
-                          Center(
-                            child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 60, right: spacing_large),
-                                child: Column(
-                                  children: <Widget>[
-                                    Card(
-                                      semanticContainer: true,
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      elevation: spacing_standard,
-                                      margin: EdgeInsets.all(spacing_control),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100.0)),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: CircleAvatar(
-                                            backgroundImage:
-                                                AssetImage(ic_user),
-                                            radius: 55),
-                                      ),
-                                    ),
-                                    SizedBox(height: spacing_middle),
-                                    Text(
-                                      "Guest User",
-                                      style: boldTextStyle(
-                                          color: appStore.isDarkModeOn
-                                              ? white
-                                              : sh_textColorPrimary,
-                                          size: 18),
-                                    )
+                          Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: sh_colorPrimary.withOpacity(0.2)),
+                            padding: EdgeInsets.all(24),
+                            child: Column(
+                              children: <Widget>[
+                                Image.asset(ic_app_icon, width: 40),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    text("PETS",
+                                        textColor: sh_textColorPrimary,
+                                        fontSize: textSizeMedium,
+                                        fontFamily: fontBold),
+                                    text("QTR",
+                                        textColor: sh_colorPrimary,
+                                        fontSize: textSizeMedium,
+                                        fontFamily: fontBold),
                                   ],
-                                )),
+                                ),
+                                4.height,
+                                Text("v 1.0",
+                                    style: primaryTextStyle(
+                                        color: appStore.isDarkModeOn
+                                            ? white
+                                            : sh_textColorPrimary,
+                                        size: 14))
+                              ],
+                            ),
                           ),
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: spacing_standard_new, top: 30),
-                                  child: Icon(Icons.clear)))
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: spacing_standard_new, top: 30),
+                                    child: Icon(Icons.clear)),
+                              ))
                         ],
                       ),
 
@@ -535,6 +539,7 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                             //     .name
                                             //     .toUpperCase(),
                                             style: primaryTextStyle(
+                                                weight: fontWeightBoldGlobal,
                                                 color: appStore.isDarkModeOn
                                                     ? white
                                                     : sh_textColorPrimary))
@@ -595,6 +600,8 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                                             .nameEng
                                                             .toString(),
                                                         style: primaryTextStyle(
+                                                            weight:
+                                                                fontWeightBoldGlobal,
                                                             color: appStore
                                                                     .isDarkModeOn
                                                                 ? white
@@ -672,6 +679,8 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                                                   .nameEng
                                                                   .toString(),
                                                               style: primaryTextStyle(
+                                                                  weight:
+                                                                      fontWeightBoldGlobal,
                                                                   color: appStore
                                                                           .isDarkModeOn
                                                                       ? white
@@ -723,6 +732,8 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                                                       .nameEng
                                                                       .toString(),
                                                                   style: primaryTextStyle(
+                                                                      weight: FontWeight
+                                                                          .w400,
                                                                       color: appStore
                                                                               .isDarkModeOn
                                                                           ? white
@@ -877,27 +888,28 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                           // );
                         },
                       ),
+
                       Divider(color: sh_view_color, height: 1),
                       getDrawerItem(null, sh_lbl_allbrands, callback: () {
                         Brands().launch(context);
                       }),
-                      Divider(color: sh_view_color, height: 1),
-                      getDrawerItem(null, sh_lbl_arabic, callback: () {
-                        // ShSettingsScreen().launch(context);
-                      }),
-                      Divider(color: sh_view_color, height: 1),
-                      getDrawerItem(null, sh_lbl_english, callback: () {
-                        // ShSettingsScreen().launch(context);
-                      }),
+                      // Divider(color: sh_view_color, height: 1),
+                      // getDrawerItem(null, sh_lbl_arabic, callback: () {
+                      //   // ShSettingsScreen().launch(context);
+                      // }),
+                      // Divider(color: sh_view_color, height: 1),
+                      // getDrawerItem(null, sh_lbl_english, callback: () {
+                      //   // ShSettingsScreen().launch(context);
+                      // }),
                       Divider(color: sh_view_color, height: 1),
                       getDrawerItem(null, sh_lbl_login_in, callback: () {
                         ShSignIn().launch(context);
                         // ShSettingsScreen().launch(context);
                       }),
-                      Divider(color: sh_view_color, height: 1),
-                      SizedBox(height: 30),
+
                       // Divider(color: sh_view_color, height: 1),
-                      SizedBox(height: 20),
+                      Divider(color: sh_view_color, height: 1),
+
                       getDrawerItem(sh_user_placeholder, sh_lbl_account,
                           callback: () {
                         // ShAccountScreen().launch(context);
@@ -908,48 +920,52 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                       setState(() {});
                     }*/
                       }),
+                      Divider(color: sh_view_color, height: 1),
+
                       getDrawerItem(sh_settings, sh_lbl_settings, callback: () {
                         ShSettingsScreen().launch(context);
                       }),
-                      SizedBox(height: 20),
+                      Divider(color: sh_view_color, height: 1),
+
                       // getDrawerItem(null, sh_lbl_faq, callback: () {
                       //   ShFAQScreen().launch(context);
                       // }),
                       getDrawerItem(null, sh_lbl_contact_us, callback: () {
                         ShContactUsScreen().launch(context);
                       }),
-                      SizedBox(height: 30),
-                      Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: sh_colorPrimary.withOpacity(0.2)),
-                        padding: EdgeInsets.all(24),
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(ic_app_icon, width: 40),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                text("PETS",
-                                    textColor: sh_textColorPrimary,
-                                    fontSize: textSizeMedium,
-                                    fontFamily: fontBold),
-                                text("QTR",
-                                    textColor: sh_colorPrimary,
-                                    fontSize: textSizeMedium,
-                                    fontFamily: fontBold),
-                              ],
-                            ),
-                            4.height,
-                            Text("v 1.0",
-                                style: primaryTextStyle(
-                                    color: appStore.isDarkModeOn
-                                        ? white
-                                        : sh_textColorPrimary,
-                                    size: 14))
-                          ],
-                        ),
-                      ),
+                      // SizedBox(height: 30),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //       shape: BoxShape.circle,
+                      //       color: sh_colorPrimary.withOpacity(0.2)),
+                      //   padding: EdgeInsets.all(24),
+                      //   child: Column(
+                      //     children: <Widget>[
+                      //       Image.asset(ic_app_icon, width: 40),
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.center,
+                      //         children: [
+                      //           text("PETS",
+                      //               textColor: sh_textColorPrimary,
+                      //               fontSize: textSizeMedium,
+                      //               fontFamily: fontBold),
+                      //           text("QTR",
+                      //               textColor: sh_colorPrimary,
+                      //               fontSize: textSizeMedium,
+                      //               fontFamily: fontBold),
+                      //         ],
+                      //       ),
+                      //       4.height,
+                      //       Text("v 1.0",
+                      //           style: primaryTextStyle(
+                      //               color: appStore.isDarkModeOn
+                      //                   ? white
+                      //                   : sh_textColorPrimary,
+                      //               size: 14))
+                      //     ],
+                      //   ),
+                      // ),
+
                       SizedBox(height: 30),
                     ],
                   ),
@@ -979,7 +995,8 @@ class ShHomeScreenState extends State<ShHomeScreen> {
             SizedBox(width: 20),
             Text(name!,
                 style: primaryTextStyle(
-                    color: appStore.isDarkModeOn ? white : sh_textColorPrimary))
+                  color: appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                ))
           ],
         ),
       ),

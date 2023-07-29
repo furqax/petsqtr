@@ -58,7 +58,8 @@ const sh_lbl_reviews = "Reviews";
 const sh_lbl_filter = "Filters";
 const sh_lbl_categories = "Categories";
 const sh_lbl_shopbycategories = "Shop By Category";
-const sh_lbl_browsebypets = "Shop By Category";
+const sh_lbl_browsebypets = "Shop By Pets";
+const sh_lbl_browsebybrands = "Shop By Brands";
 
 const sh_lbl_more = "More";
 const sh_lbl_price = "Price";

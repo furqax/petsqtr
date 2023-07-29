@@ -94,7 +94,8 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: height * 0.55,
+                        height: height * 0.38,
+                        color: color_primary_black,
                         child: Stack(
                           alignment: Alignment.bottomCenter,
                           children: <Widget>[
@@ -103,7 +104,7 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                               itemBuilder: (context, index) {
                                 return CachedNetworkImage(
                                   width: width,
-                                  height: height * 0.55,
+                                  height: height * 0.5,
                                   imageUrl:
                                       "${EnvironmentConstants.bannerimageurl}${controller.AllBanner[index].imgName.toString()}",
                                   placeholder: (context, url) => Center(
@@ -128,11 +129,14 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                           ],
                         ),
                       ),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: text(sh_lbl_browsebypets.toUpperCase(),
-                            fontSize: textSizeLargeMedium,
-                            fontFamily: fontFamilySecondaryGlobal,
+                            fontSize: textSizeLargeMedium + 2,
+                            fontFamily: fontBold,
                             textColor: sh_black,
                             bold: true),
                       ),
@@ -328,16 +332,29 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                       //     },
                       //   ),
                       // ),
+
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: text(sh_lbl_browsebybrands.toUpperCase(),
+                            fontSize: textSizeLargeMedium + 2,
+                            fontFamily: fontBold,
+                            textColor: sh_black,
+                            bold: true),
+                      ),
                       GridView.builder(
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: 6,
+                        itemCount: 18,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           // mainAxisSpacing: spacing_standard,
                           // crossAxisSpacing: spacing_standard,
-                          childAspectRatio: 0.6,
+                          childAspectRatio:
+                              .8, // Increase this value to adjust the image size.
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return controller.AllBanner.isNotEmpty
@@ -363,15 +380,15 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                                         });
                                       },
                                       child: Container(
-                                        height: 100,
+                                        // height: 200,
                                         // decoration: BoxDecoration(
                                         //     border: Border.all(
                                         //   color: sh_colorPrimary.withOpacity(0.2),
                                         // )),
                                         // color: Colors.amberAccent,
                                         child: CachedNetworkImage(
-                                          width: 170,
-                                          height: 170,
+                                          width: 300,
+                                          height: 300,
                                           imageUrl:
                                               "${EnvironmentConstants.brandimageurl}${controller.AllBrands[index].image.toString()}",
                                           placeholder: (context, url) => Center(
