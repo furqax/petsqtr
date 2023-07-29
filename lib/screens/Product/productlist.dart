@@ -1,0 +1,172 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:juber_car_booking/screens/Category/sub_subcategory.dart';
+import 'package:juber_car_booking/screens/Product/product_detail.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:juber_car_booking/main.dart';
+import 'package:juber_car_booking/models/ShCategory.dart';
+import 'package:juber_car_booking/models/ShProduct.dart';
+import 'package:juber_car_booking/utils/ShColors.dart';
+import 'package:juber_car_booking/utils/ShConstant.dart';
+import 'package:juber_car_booking/utils/ShExtension.dart';
+import 'package:juber_car_booking/utils/ShStrings.dart';
+import 'package:juber_car_booking/utils/ShWidget.dart';
+
+import '../../api-handler/env_constants.dart';
+import '../../controller/home_controller.dart';
+import '../../controller/product_list_controller.dart';
+import '../../models/Products.dart';
+import '../../models/categorywithsub.dart';
+import '../ShViewAllProducts.dart';
+
+// ignore: must_be_immutable
+class ProductList extends StatefulWidget {
+  String? brandname;
+
+  ProductList({required this.brandname});
+
+  @override
+  ProductListState createState() => ProductListState();
+}
+
+class ProductListState extends State<ProductList> {
+  HomeController controller = Get.find<HomeController>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.search,
+                  color: appStore.isDarkModeOn ? white : sh_textColorPrimary)),
+        ],
+        title: Text(
+          widget.brandname!,
+          style: boldTextStyle(size: 18),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: spacing_large,
+            ),
+            GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: controller.brandproduct.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: spacing_standard,
+                crossAxisSpacing: spacing_standard,
+                childAspectRatio: 0.8,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                        color: sh_black.withOpacity(0.2),
+                      )),
+                      // color: Colors.amberAccent,
+                      child: Image.network(
+                        "${controller.brandproduct[index].images[0].src}",
+                        width: 170,
+                        height: 170,
+                        // color: sh_white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: spacing_standard,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 160,
+                                child: Text(
+                                  "${controller.brandproduct[index].title.toString().toUpperCase()}",
+                                  style: TextStyle(
+                                    color: sh_black,
+                                    fontSize: 15.0,
+
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          // Row(
+                          //   children: [
+                          //     SizedBox(
+                          //       width: 160,
+                          //       child: Text(
+                          //         "${controller.brandproduct[index]..toString().toUpperCase()} ${products[index].currency.toString().toUpperCase()}",
+                          //         style: TextStyle(
+                          //           color: sh_colorPrimary,
+                          //           fontSize: 15.0,
+
+                          //           // fontWeight: FontWeight.bold,
+                          //         ),
+                          //         maxLines: 1,
+                          //         overflow: TextOverflow.ellipsis,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ).onTap(() {
+                  print("tap");
+                  Get.put(ProductListController(Get.find()));
+                  ProductListController productcontroller =
+                      Get.find<ProductListController>();
+
+                  productcontroller
+                      .getproductsdetail(
+                          controller.brandproduct[index].id.toString())
+                      .then((value) {
+                    if (value == true) {
+                      ProductDetailPage(
+                              // product: controller.brandproduct[index],
+                              )
+                          .launch(context);
+                    }
+                  });
+                });
+              },
+            ),
+            SizedBox(height: spacing_standard_new),
+          ],
+        ),
+      ),
+    );
+  }
+}
