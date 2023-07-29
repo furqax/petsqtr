@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:juber_car_booking/screens/Category/sub_subcategory.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:juber_car_booking/main.dart';
@@ -13,8 +15,11 @@ import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:juber_car_booking/utils/ShWidget.dart';
 
 import '../../api-handler/env_constants.dart';
+import '../../controller/home_controller.dart';
+import '../../controller/product_list_controller.dart';
 import '../../models/alldatacategory.dart';
 import '../../models/categorywithsub.dart';
+import '../Product/product_detail.dart';
 import '../Product/productlist.dart';
 import '../ShViewAllProducts.dart';
 
@@ -30,6 +35,8 @@ class SubCategory extends StatefulWidget {
 }
 
 class SubCategoryState extends State<SubCategory> {
+  HomeController controller = Get.find<HomeController>();
+
   @override
   void initState() {
     super.initState();
@@ -85,11 +92,16 @@ class SubCategoryState extends State<SubCategory> {
                         color: sh_colorPrimary.withOpacity(0.2),
                       )),
                       // color: Colors.amberAccent,
-                      child: Image.network(
-                        "${EnvironmentConstants.imageurl}${widget.category!.category![index].image!}",
+                      child: CachedNetworkImage(
                         width: 170,
                         height: 170,
-                        // color: sh_white,
+                        imageUrl:
+                            "${EnvironmentConstants.imageurl}${widget.category!.category![index].image!}",
+                        placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(
+                          color: sh_colorPrimary,
+                        )),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                     ),
                     SizedBox(
@@ -129,9 +141,19 @@ class SubCategoryState extends State<SubCategory> {
                     SubSubCategory(category: widget.category!.category![index])
                         .launch(context);
                   } else {
-                    // ProductList(
-                    //         category: widget.category!.category![index].nameEng)
-                    //     .launch(context);
+                    controller
+                        .getbrandsproducts(widget
+                            .category!.category![index].customId
+                            .toString())
+                        .then((value) {
+                      print(value);
+                      if (value == true) {
+                        // ProductList().launch(context);
+                        Get.to(() => ProductList(
+                            brandname: widget.category!.category![index].nameEng
+                                .toString()));
+                      }
+                    });
                   }
                 });
               },

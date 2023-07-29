@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -16,7 +17,9 @@ import 'package:juber_car_booking/utils/dots_indicator/src/dots_indicator.dart';
 import '../api-handler/env_constants.dart';
 import '../controller/home_controller.dart';
 import '../models/categorywithsub.dart';
+import 'Brands/brands.dart';
 import 'Category/subcategory.dart';
+import 'Product/productlist.dart';
 
 class ShHomeFragment extends StatefulWidget {
   static String tag = '/ShHomeFragment';
@@ -98,11 +101,23 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                             PageView.builder(
                               itemCount: controller.AllBanner.length,
                               itemBuilder: (context, index) {
-                                return Image.network(
-                                    "${EnvironmentConstants.bannerimageurl}${controller.AllBanner[index].imgName.toString()}",
-                                    width: width,
-                                    height: height * 0.55,
-                                    fit: BoxFit.cover);
+                                return CachedNetworkImage(
+                                  width: width,
+                                  height: height * 0.55,
+                                  imageUrl:
+                                      "${EnvironmentConstants.bannerimageurl}${controller.AllBanner[index].imgName.toString()}",
+                                  placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator(
+                                    color: sh_colorPrimary,
+                                  )),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                );
+                                // Image.network(
+                                //     "${EnvironmentConstants.bannerimageurl}${controller.AllBanner[index].imgName.toString()}",
+                                // width: width,
+                                // height: height * 0.55,
+                                //     fit: BoxFit.cover);
                               },
                               onPageChanged: (index) {
                                 setState(() {
@@ -168,12 +183,29 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                                                           : MainAxisAlignment
                                                               .end,
                                                       children: [
-                                                        Image.network(
-                                                          "${EnvironmentConstants.imageurl}${controller.AllDataList[index].image}",
+                                                        CachedNetworkImage(
                                                           width: 110,
                                                           height: 110,
-                                                          // color: sh_white,
+                                                          imageUrl:
+                                                              "${EnvironmentConstants.imageurl}${controller.AllDataList[index].image}",
+                                                          placeholder: (context,
+                                                                  url) =>
+                                                              Center(
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                            color:
+                                                                sh_colorPrimary,
+                                                          )),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              Icon(Icons.error),
                                                         ),
+                                                        // Image.network(
+                                                        //   "${EnvironmentConstants.imageurl}${controller.AllDataList[index].image}",
+                                                        //   width: 110,
+                                                        //   height: 110,
+                                                        //   // color: sh_white,
+                                                        // ),
                                                       ],
                                                     ),
                                                   ),
@@ -296,22 +328,100 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                       //     },
                       //   ),
                       // ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: text(sh_lbl_new_product.toUpperCase(),
-                            fontSize: textSizeLargeMedium,
-                            fontFamily: fontFamilySecondaryGlobal,
-                            textColor: sh_black,
-                            bold: true),
+                      GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: 6,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          // mainAxisSpacing: spacing_standard,
+                          // crossAxisSpacing: spacing_standard,
+                          childAspectRatio: 0.6,
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return controller.AllBanner.isNotEmpty
+                              ? controller.AllBrands[index].image
+                                          .toString()
+                                          .toLowerCase() !=
+                                      "null"
+                                  ? InkWell(
+                                      onTap: () {
+                                        controller
+                                            .getbrandsproducts(controller
+                                                .AllBrands[index].customId
+                                                .toString())
+                                            .then((value) {
+                                          print(value);
+                                          if (value == true) {
+                                            // ProductList().launch(context);
+                                            Get.to(() => ProductList(
+                                                brandname: controller
+                                                    .AllBrands[index].nameEng
+                                                    .toString()));
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        height: 100,
+                                        // decoration: BoxDecoration(
+                                        //     border: Border.all(
+                                        //   color: sh_colorPrimary.withOpacity(0.2),
+                                        // )),
+                                        // color: Colors.amberAccent,
+                                        child: CachedNetworkImage(
+                                          width: 170,
+                                          height: 170,
+                                          imageUrl:
+                                              "${EnvironmentConstants.brandimageurl}${controller.AllBrands[index].image.toString()}",
+                                          placeholder: (context, url) => Center(
+                                              child: CircularProgressIndicator(
+                                            color: sh_colorPrimary,
+                                          )),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                        // Image.network(
+                                        //   "${EnvironmentConstants.brandimageurl}${controller.AllBrands[index].image.toString()}",
+                                        //   width: 170,
+                                        //   height: 170,
+                                        //   // color: sh_white,
+                                        // ),
+                                      ),
+                                    )
+                                  : Container()
+                              : Container();
+                        },
                       ),
-                      horizontalHeading(sh_lbl_newest_product, callback: () {
-                        // ShViewAllProductScreen(
-                        //         prodcuts: newestProducts,
-                        //         title: sh_lbl_newest_product)
-                        //     .launch(context);
+                      Container(
+                        color: sh_colorPrimary,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: text("See All Brands".toUpperCase(),
+                              fontSize: textSizeSMedium,
+                              fontFamily: fontFamilySecondaryGlobal,
+                              textColor: sh_white,
+                              bold: true),
+                        ),
+                      ).onTap(() {
+                        Brands().launch(context);
                       }),
-                      ProductHorizontalList(newestProducts),
-                      SizedBox(height: spacing_standard_new),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: text(sh_lbl_new_product.toUpperCase(),
+                      //       fontSize: textSizeLargeMedium,
+                      //       fontFamily: fontFamilySecondaryGlobal,
+                      //       textColor: sh_black,
+                      //       bold: true),
+                      // ),
+                      // horizontalHeading(sh_lbl_newest_product, callback: () {
+                      //   // ShViewAllProductScreen(
+                      //   //         prodcuts: newestProducts,
+                      //   //         title: sh_lbl_newest_product)
+                      //   //     .launch(context);
+                      // }),
+                      // ProductHorizontalList(newestProducts),
+                      // SizedBox(height: spacing_standard_new),
                       // horizontalHeading(sh_lbl_Featured, callback: () {
                       //   ShViewAllProductScreen(
                       //           prodcuts: featuredProducts,

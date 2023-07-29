@@ -32,14 +32,14 @@ class Department {
     required this.category,
   });
   late final int id;
-  late final String nameEng;
+  late final String? nameEng;
   late final Null nameArb;
-  late final String image;
-  late final int orderby;
-  late final int status;
-  late final String customId;
-  late final String createdAt;
-  late final String updatedAt;
+  late final String? image;
+  late final int? orderby;
+  late final int? status;
+  late final String? customId;
+  late final String? createdAt;
+  late final String? updatedAt;
   late final Null deletedAt;
   late final List<Categories> category;
 
@@ -91,15 +91,15 @@ class Categories {
     required this.subcategory,
   });
   late final int id;
-  late final int departmentId;
-  late final int orderby;
-  late final String nameEng;
+  late final int? departmentId;
+  late final int? orderby;
+  late final String? nameEng;
   late final Null nameArb;
-  late final String image;
-  late final int status;
-  late final Null customId;
-  late final String createdAt;
-  late final String updatedAt;
+  late final String? image;
+  late final int? status;
+  var customId;
+  late final String? createdAt;
+  late final String? updatedAt;
   late final Null deletedAt;
   late final List<Subcategory> subcategory;
 
@@ -111,7 +111,7 @@ class Categories {
     nameArb = null;
     image = json['image'];
     status = json['status'];
-    customId = null;
+    customId = json['custom_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = null;
@@ -154,16 +154,16 @@ class Subcategory {
     this.deletedAt,
   });
   late final int id;
-  late final int categoryId;
-  late final int departmentId;
-  late final int orderby;
-  late final String nameEng;
+  late final int? categoryId;
+  late final int? departmentId;
+  late final int? orderby;
+  late final String? nameEng;
   late final Null nameArb;
-  late final String image;
-  late final int status;
-  late final Null customId;
-  late final String createdAt;
-  late final String updatedAt;
+  late final String? image;
+  late final int? status;
+  var customId;
+  late final String? createdAt;
+  late final String? updatedAt;
   late final Null deletedAt;
 
   Subcategory.fromJson(Map<String, dynamic> json) {
@@ -175,7 +175,7 @@ class Subcategory {
     nameArb = null;
     image = json['image'];
     status = json['status'];
-    customId = null;
+    customId = json['custom_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = null;

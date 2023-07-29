@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:juber_car_booking/models/alldatacategory.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../api-handler/api-repo.dart';
 import '../models/collection_product.dart';
@@ -40,6 +41,8 @@ class HomeController extends GetxController {
 
   Future<bool> getalldata() async {
     try {
+      EasyLoading.show();
+
       var response = await apiRepository.getalldata();
       if (response.data['department'].toString() != "[]") {
         List listData = response.data['department'];
@@ -65,40 +68,53 @@ class HomeController extends GetxController {
 
         AllBanner.addAll(parsingList3);
         update();
+        EasyLoading.dismiss();
+
         return true;
       } else {
+        EasyLoading.dismiss();
         return false;
       }
     } catch (e) {
+      EasyLoading.dismiss();
       print("error $e");
       // handle error
       return false;
     } finally {
+      EasyLoading.dismiss();
       // isLoading.value = false; // set loading to false after operation
     }
   }
 
   Future<bool> getbrandsproducts(String id) async {
-    try {
-      var response = await apiRepository.getbrandsproducts(id);
-      if (response.data['products'].toString() != "[]") {
-        List listData = response.data['products'];
-        print("listData ${listData.length}");
-        var parsingList = listData.map((m) => Products.fromJson(m)).toList();
-        brandproduct.clear();
-        brandproduct.addAll(parsingList); // add new items to your list
-        print("brandproduct ${brandproduct.length}");
-        update();
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      print("error $e");
-      // handle error
+    print("call getbrands");
+    // try {
+    EasyLoading.show();
+    var response = await apiRepository.getbrandsproducts(id);
+    if (response.data['products'].toString() != "[]") {
+      List listData = response.data['products'];
+      print("listData ${listData.length}");
+      var parsingList = listData.map((m) => Products.fromJson(m)).toList();
+      brandproduct.clear();
+      brandproduct.addAll(parsingList); // add new items to your list
+      print("brandproduct ${brandproduct.length}");
+      update();
+      EasyLoading.dismiss();
+
+      return true;
+    } else {
+      EasyLoading.dismiss();
+
       return false;
-    } finally {
-      // isLoading.value = false; // set loading to false after operation
     }
+    // } catch (e) {
+    //   EasyLoading.dismiss();
+    //   print("error $e");
+    //   // handle error
+    //   return false;
+    // } finally {
+    //   EasyLoading.dismiss();
+    //   // isLoading.value = false; // set loading to false after operation
+    // }
   }
 }

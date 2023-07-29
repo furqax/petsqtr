@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:juber_car_booking/main.dart';
 import 'package:juber_car_booking/models/ShCategory.dart';
@@ -12,8 +14,10 @@ import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:juber_car_booking/utils/ShWidget.dart';
 
 import '../../api-handler/env_constants.dart';
+import '../../controller/home_controller.dart';
 import '../../models/alldatacategory.dart';
 import '../../models/categorywithsub.dart';
+import '../Product/productlist.dart';
 import '../ShViewAllProducts.dart';
 import '../../models/alldatacategory.dart';
 
@@ -29,6 +33,8 @@ class SubSubCategory extends StatefulWidget {
 }
 
 class SubSubCategoryState extends State<SubSubCategory> {
+  HomeController controller = Get.find<HomeController>();
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +60,7 @@ class SubSubCategoryState extends State<SubSubCategory> {
                   color: appStore.isDarkModeOn ? white : sh_textColorPrimary)),
         ],
         title: Text(
-          widget.category!.nameEng,
+          widget.category!.nameEng.toString(),
           style: boldTextStyle(size: 18),
         ),
       ),
@@ -84,12 +90,23 @@ class SubSubCategoryState extends State<SubSubCategory> {
                         color: sh_colorPrimary.withOpacity(0.2),
                       )),
                       // color: Colors.amberAccent,
-                      child: Image.network(
-                        "${EnvironmentConstants.imageurl}${widget.category!.subcategory[index].image}",
+                      child: CachedNetworkImage(
                         width: 170,
                         height: 170,
-                        // color: sh_white,
+                        imageUrl:
+                            "${EnvironmentConstants.imageurl}${widget.category!.subcategory[index].image}",
+                        placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(
+                          color: sh_colorPrimary,
+                        )),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
+                      //  Image.network(
+                      //   "${EnvironmentConstants.imageurl}${widget.category!.subcategory[index].image}",
+                      //   width: 170,
+                      //   height: 170,
+                      //   // color: sh_white,
+                      // ),
                     ),
                     SizedBox(
                       height: spacing_standard,
@@ -117,6 +134,20 @@ class SubSubCategoryState extends State<SubSubCategory> {
                     ),
                   ],
                 ).onTap(() {
+                  controller
+                      .getbrandsproducts(widget
+                          .category!.subcategory![index].customId
+                          .toString())
+                      .then((value) {
+                    print(value);
+                    if (value == true) {
+                      // ProductList().launch(context);
+                      Get.to(() => ProductList(
+                          brandname: widget
+                              .category!.subcategory![index].nameEng
+                              .toString()));
+                    }
+                  });
                   // SubSubCategory(category: widget.category!.subcategories![index])
                   //     .launch(context);
                 });

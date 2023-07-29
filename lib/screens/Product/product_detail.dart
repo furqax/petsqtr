@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:juber_car_booking/utils/ShColors.dart';
 import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:nb_utils/nb_utils.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import '../../controller/product_list_controller.dart';
 import '../../main.dart';
 import '../../models/Products.dart';
@@ -23,11 +23,41 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   int _currentImageIndex = 0;
   ProductListController productcontroller = Get.find<ProductListController>();
   String? _selectedSize;
+  int price = 0;
 
-  void _selectSize(String? size) {
+  void _selectSize(String? size, int index) {
     setState(() {
       _selectedSize = size;
+      price = index;
     });
+  }
+
+  @override
+  void initState() {
+    _selectedSize =
+        productcontroller.productdetail!.variants![price].barcode.toString();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Get.delete<ProductListController>();
+    super.dispose();
+  }
+
+  double calculateDiscount(double originalPrice, double discountPercentage) {
+    if (originalPrice <= 0 ||
+        discountPercentage < 0 ||
+        discountPercentage > 100) {
+      throw ArgumentError(
+          'Invalid input: originalPrice and discountPercentage must be positive numbers.');
+    }
+
+    double discountAmount = (originalPrice * discountPercentage) / 100;
+
+    return discountAmount;
   }
 
   @override
@@ -51,6 +81,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Text(productcontroller.productdetail!.images[0].src.toString()),
               CarouselSlider(
                 items: productImageSliders(),
                 options: CarouselOptions(
@@ -101,8 +132,47 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
               SizedBox(height: height * 0.02),
               Center(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Text(
+                      'QTR  ${productcontroller.productdetail!.variants![price].compareAtPrice.toString()}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      height: 1,
+                      width: 100,
+                      color: Colors.black, // Customize the color of the line
+                    ),
+                  ],
+                ),
+              ),
+              // Text(
+              //   calculateDiscount(
+              //           double.parse(productcontroller
+              //               .productdetail!.variants![price].compareAtPrice
+              //               .toString()),
+              //           double.parse(productcontroller
+              //               .productdetail!.variants![price].price
+              //               .toString()))
+              //       .toString(),
+              // ),
+              // Center(
+              //   child: Text(
+
+              //     style: TextStyle(
+              //       fontSize: 20,
+              //       // color: sh_colorPrimary,
+              //       // fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
+              Center(
                 child: Text(
-                  'QTR  ${productcontroller.productdetail!.variants![0].price.toString()}',
+                  'QTR  ${productcontroller.productdetail!.variants![price].price.toString()}',
                   style: TextStyle(
                     fontSize: 20,
                     // color: sh_colorPrimary,
@@ -126,23 +196,48 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
               SizedBox(height: height * 0.01),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () => _selectSize('S'),
-                    child: _buildSizeOption('S'),
-                  ),
-                  GestureDetector(
-                    onTap: () => _selectSize('M'),
-                    child: _buildSizeOption('M'),
-                  ),
-                  GestureDetector(
-                    onTap: () => _selectSize('L'),
-                    child: _buildSizeOption('L'),
-                  ),
-                ],
-              ),
+              GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: productcontroller.productdetail!.variants!.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      // mainAxisSpacing: spacing_standard,
+                      // crossAxisSpacing: spacing_standard,
+                      childAspectRatio: 1.5),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => _selectSize(
+                          '${productcontroller.productdetail!.variants![index].barcode}',
+                          index),
+                      child: _buildSizeOption(
+                          '${productcontroller.productdetail!.variants![index].barcode}'),
+                    );
+                  }),
+              // GestureDetector(
+              //   onTap: () => _selectSize(
+              //       '${productcontroller.productdetail!.variants![0].barcode}'),
+              //   child: _buildSizeOption(
+              //       '${productcontroller.productdetail!.variants![0].fulfillmentService}'),
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () => _selectSize('S'),
+              //       child: _buildSizeOption('S'),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () => _selectSize('M'),
+              //       child: _buildSizeOption('M'),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () => _selectSize('L'),
+              //       child: _buildSizeOption('L'),
+              //     ),
+              //   ],
+              // ),
               SizedBox(height: height * 0.02),
               Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -195,15 +290,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
               SizedBox(height: height * 0.02),
-              Text(
-                """${productcontroller.productdetail!.bodyHtml}
+              Html(data: """${productcontroller.productdetail!.bodyHtml}"""),
+              //         Text(
+              //           """${productcontroller.productdetail!.bodyHtml}
 
-                   13101-3M(Upto24kg)
-                   13102-4M(Upto30kg)
-      """,
-                maxLines: 5,
-                overflow: TextOverflow.ellipsis,
-              ),
+              //              13101-3M(Upto24kg)
+              //              13102-4M(Upto30kg)
+              // """,
+              //           maxLines: 5,
+              //           overflow: TextOverflow.ellipsis,
+              //         ),
             ],
           ),
         ),
@@ -217,7 +313,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           image: DecorationImage(
-            image: NetworkImage(url.toString()),
+            image: NetworkImage(url.src.toString()),
             fit: BoxFit.cover,
           ),
         ),

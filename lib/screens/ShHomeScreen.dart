@@ -1,6 +1,7 @@
 import 'dart:convert';
 // import 'dart:js_interop';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,7 @@ import '../models/Category.dart';
 import 'Brands/brands.dart';
 import 'Category/sub_subcategory.dart';
 import 'Category/subcategory.dart';
+import 'Product/productlist.dart';
 import 'ShSubCategory.dart';
 
 class ShHomeScreen extends StatefulWidget {
@@ -504,17 +506,30 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                     controller.isExpandedList[categoryIndex],
                                 headerBuilder: (context, isExpanded) {
                                   return ListTile(
-                                    leading: Image.network(
-                                      "${EnvironmentConstants.imageurl}${controller.AllDataList[categoryIndex].image}",
-
-                                      // _categories[categoryIndex].imagePath,
+                                    leading: CachedNetworkImage(
                                       width: 60,
                                       height: 60,
+                                      imageUrl:
+                                          "${EnvironmentConstants.imageurl}${controller.AllDataList[categoryIndex].image}",
+                                      placeholder: (context, url) => Center(
+                                          child: CircularProgressIndicator(
+                                        color: sh_colorPrimary,
+                                      )),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                     ),
+                                    // Image.network(
+                                    //   "${EnvironmentConstants.imageurl}${controller.AllDataList[categoryIndex].image}",
+
+                                    //   // _categories[categoryIndex].imagePath,
+                                    //   width: 60,
+                                    //   height: 60,
+                                    // ),
                                     title: Text(
                                             controller
                                                 .AllDataList[categoryIndex]
                                                 .nameEng
+                                                .toString()
                                                 .toUpperCase(),
                                             // _categories[categoryIndex]
                                             //     .name
@@ -577,7 +592,8 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                                                 categoryIndex]
                                                             .category[
                                                                 subcategoryIndex]
-                                                            .nameEng,
+                                                            .nameEng
+                                                            .toString(),
                                                         style: primaryTextStyle(
                                                             color: appStore
                                                                     .isDarkModeOn
@@ -597,6 +613,28 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                                   //                 .category[
                                                   //             subcategoryIndex])
                                                   //     .launch(context);
+                                                  controller
+                                                      .getbrandsproducts(controller
+                                                          .AllDataList[
+                                                              categoryIndex]
+                                                          .category[
+                                                              subcategoryIndex]
+                                                          .customId
+                                                          .toString())
+                                                      .then((value) {
+                                                    print(value);
+                                                    if (value == true) {
+                                                      // ProductList().launch(context);
+                                                      Get.to(() => ProductList(
+                                                          brandname: controller
+                                                              .AllDataList[
+                                                                  categoryIndex]
+                                                              .category[
+                                                                  subcategoryIndex]
+                                                              .nameEng
+                                                              .toString()));
+                                                    }
+                                                  });
                                                 }),
                                               ),
                                             );
@@ -631,7 +669,8 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                                                       categoryIndex]
                                                                   .category[
                                                                       subcategoryIndex]
-                                                                  .nameEng,
+                                                                  .nameEng
+                                                                  .toString(),
                                                               style: primaryTextStyle(
                                                                   color: appStore
                                                                           .isDarkModeOn
@@ -681,13 +720,39 @@ class ShHomeScreenState extends State<ShHomeScreen> {
                                                                           subcategoryIndex]
                                                                       .subcategory[
                                                                           subSubcategoryIndex]
-                                                                      .nameEng,
+                                                                      .nameEng
+                                                                      .toString(),
                                                                   style: primaryTextStyle(
                                                                       color: appStore
                                                                               .isDarkModeOn
                                                                           ? white
                                                                           : sh_textColorPrimary)),
                                                               onTap: () {
+                                                                controller
+                                                                    .getbrandsproducts(controller
+                                                                        .AllDataList[
+                                                                            categoryIndex]
+                                                                        .category[
+                                                                            subcategoryIndex]
+                                                                        .subcategory[
+                                                                            subSubcategoryIndex]
+                                                                        .customId
+                                                                        .toString())
+                                                                    .then(
+                                                                        (value) {
+                                                                  print(value);
+                                                                  if (value ==
+                                                                      true) {
+                                                                    // ProductList().launch(context);
+                                                                    Get.to(() => ProductList(
+                                                                        brandname: controller
+                                                                            .AllDataList[categoryIndex]
+                                                                            .category[subcategoryIndex]
+                                                                            .subcategory[subSubcategoryIndex]
+                                                                            .nameEng
+                                                                            .toString()));
+                                                                  }
+                                                                });
                                                                 // Handle sub-subcategory tap here
                                                               },
                                                             );

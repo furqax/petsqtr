@@ -91,22 +91,6 @@ class BrandsState extends State<Brands> {
                             ),
                           )
                         : Container(),
-                    SizedBox(
-                      height: spacing_standard,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Center(
-                        child: Text(
-                          "${controller.AllBrands[index].nameEng}",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ).onTap(() {
                   controller

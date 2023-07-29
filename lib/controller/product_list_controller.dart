@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:juber_car_booking/models/alldatacategory.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -27,6 +28,7 @@ class ProductListController extends GetxController {
   void onClose() {}
 
   Future<bool> getproductsdetail(String id) async {
+    EasyLoading.show();
     try {
       var response = await apiRepository.singleproductdetail(id);
       if (response.data['product'].toString() != "[]") {
@@ -34,16 +36,23 @@ class ProductListController extends GetxController {
         print(response.data['product']["variants"]);
 
         productdetail = ProductDetail.fromJson(response.data['product']);
+        EasyLoading.dismiss();
 
         return true;
       } else {
+        EasyLoading.dismiss();
+
         return false;
       }
     } catch (e) {
+      EasyLoading.dismiss();
+
       print("error $e");
       // handle error
       return false;
     } finally {
+      EasyLoading.dismiss();
+
       // isLoading.value = false; // set loading to false after operation
     }
   }

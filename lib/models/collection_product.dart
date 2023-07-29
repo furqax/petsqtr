@@ -37,22 +37,22 @@ class Products {
     required this.image,
   });
   late final int id;
-  late final String title;
+  late final String? title;
   late final String? bodyHtml;
-  late final String vendor;
-  late final String productType;
-  late final String createdAt;
-  late final String handle;
-  late final String updatedAt;
-  late final String publishedAt;
+  late final String? vendor;
+  late final String? productType;
+  late final String? createdAt;
+  late final String? handle;
+  late final String? updatedAt;
+  late final String? publishedAt;
   late final String? templateSuffix;
-  late final String status;
-  late final String publishedScope;
-  late final String tags;
-  late final String adminGraphqlApiId;
+  late final String? status;
+  late final String? publishedScope;
+  late final String? tags;
+  late final String? adminGraphqlApiId;
   late final List<Options> options;
   late final List<Images> images;
-  late final Image image;
+  late final Image? image;
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -72,7 +72,9 @@ class Products {
     options =
         List.from(json['options']).map((e) => Options.fromJson(e)).toList();
     images = List.from(json['images']).map((e) => Images.fromJson(e)).toList();
-    image = Image.fromJson(json['image']);
+    image = json['image'].toString() != "null"
+        ? Image.fromJson(json['image'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -93,7 +95,7 @@ class Products {
     _data['admin_graphql_api_id'] = adminGraphqlApiId;
     _data['options'] = options.map((e) => e.toJson()).toList();
     _data['images'] = images.map((e) => e.toJson()).toList();
-    _data['image'] = image.toJson();
+    _data['image'] = image!.toJson();
     return _data;
   }
 }
@@ -199,16 +201,16 @@ class Image {
     required this.adminGraphqlApiId,
   });
   late final int id;
-  late final int productId;
-  late final int position;
-  late final String createdAt;
+  late final int? productId;
+  late final int? position;
+  late final String? createdAt;
   late final String updatedAt;
   late final Null alt;
-  late final int width;
-  late final int height;
-  late final String src;
+  late final int? width;
+  late final int? height;
+  late final String? src;
   late final List<int> variantIds;
-  late final String adminGraphqlApiId;
+  late final String? adminGraphqlApiId;
 
   Image.fromJson(Map<String, dynamic> json) {
     id = json['id'];
