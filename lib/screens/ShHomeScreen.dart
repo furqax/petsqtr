@@ -10,12 +10,9 @@ import 'package:juber_car_booking/screens/privacy/privacypolicy.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:juber_car_booking/main.dart';
 import 'package:juber_car_booking/models/ShCategory.dart';
-import 'package:juber_car_booking/screens/ShAccountScreen.dart';
 import 'package:juber_car_booking/screens/ShCartFragment.dart';
 import 'package:juber_car_booking/screens/ShContactUsScreen.dart';
-import 'package:juber_car_booking/screens/ShFAQScreen.dart';
 import 'package:juber_car_booking/screens/ShHomeFragment.dart';
-import 'package:juber_car_booking/screens/ShOrderListScreen.dart';
 import 'package:juber_car_booking/screens/ShProfileFragment.dart';
 import 'package:juber_car_booking/screens/ShSearchScreen.dart';
 import 'package:juber_car_booking/screens/ShSettingsScreen.dart';
@@ -29,12 +26,10 @@ import 'package:juber_car_booking/utils/ShWidget.dart';
 
 import '../api-handler/env_constants.dart';
 import '../controller/home_controller.dart';
-import '../models/Category.dart';
 import 'Brands/brands.dart';
 import 'Category/sub_subcategory.dart';
 import 'Category/subcategory.dart';
 import 'Product/productlist.dart';
-import 'ShSubCategory.dart';
 
 class ShHomeScreen extends StatefulWidget {
   static String tag = '/ShHomeScreen';
@@ -422,542 +417,529 @@ class ShHomeScreenState extends State<ShHomeScreen> {
             )
           ],
         ),
-        drawer: Obx(
-          () => SizedBox(
-            width: MediaQuery.of(context).size.width * 0.85,
-            height: MediaQuery.of(context).size.height,
-            child: Drawer(
-              elevation: 8,
-              child: SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: appStore.isDarkModeOn ? scaffoldDarkColor : white,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Stack(
-                        children: <Widget>[
-                          Center(
-                            child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 60, right: spacing_large),
+        drawer: SafeArea(
+          child: Obx(
+            () => SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: MediaQuery.of(context).size.height,
+              child: Drawer(
+                elevation: 8,
+                child: SingleChildScrollView(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: appStore.isDarkModeOn ? scaffoldDarkColor : white,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Stack(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(28.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: sh_colorPrimary.withOpacity(0.2)),
+                                padding: EdgeInsets.all(24),
                                 child: Column(
                                   children: <Widget>[
-                                    Card(
-                                      semanticContainer: true,
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      elevation: spacing_standard,
-                                      margin: EdgeInsets.all(spacing_control),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100.0)),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: CircleAvatar(
-                                            backgroundImage:
-                                                AssetImage(ic_user),
-                                            radius: 55),
-                                      ),
+                                    Image.asset(ic_app_icon, width: 40),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        text("PETS",
+                                            textColor: sh_textColorPrimary,
+                                            fontSize: textSizeMedium,
+                                            fontFamily: fontBold),
+                                        text("QTR",
+                                            textColor: sh_colorPrimary,
+                                            fontSize: textSizeMedium,
+                                            fontFamily: fontBold),
+                                      ],
                                     ),
-                                    SizedBox(height: spacing_middle),
-                                    Text(
-                                      "Guest User",
-                                      style: boldTextStyle(
-                                          color: appStore.isDarkModeOn
-                                              ? white
-                                              : sh_textColorPrimary,
-                                          size: 18),
-                                    )
+                                    4.height,
+                                    Text("v 1.0",
+                                        style: primaryTextStyle(
+                                            color: appStore.isDarkModeOn
+                                                ? white
+                                                : sh_textColorPrimary,
+                                            size: 14))
                                   ],
-                                )),
-                          ),
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: spacing_standard_new, top: 30),
-                                  child: Icon(Icons.clear)))
-                        ],
-                      ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: InkWell(
+                                  onTap: () {
+                                    context.pop();
+                                  },
+                                  child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: spacing_standard_new, top: 30),
+                                      child: Icon(Icons.clear)),
+                                ))
+                          ],
+                        ),
 
-                      ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        // itemCount: _categories.length,
-                        itemCount: controller.AllDataList.length,
+                        ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          // itemCount: _categories.length,
+                          itemCount: controller.AllDataList.length,
 
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        itemBuilder: (context, categoryIndex) {
-                          // bool hasSubcategories =
-                          //     _categories[categoryIndex].subcategories.isNotEmpty;
-                          bool hasSubcategories = controller
-                              .AllDataList[categoryIndex].category.isNotEmpty;
-                          return ExpansionPanelList(
-                            elevation: 0,
-                            expansionCallback:
-                                (int panelIndex, bool isExpanded) {
-                              setState(() {
-                                controller.isExpandedList[categoryIndex] =
-                                    !isExpanded;
-                              });
-                            },
-                            children: [
-                              ExpansionPanel(
-                                isExpanded:
-                                    controller.isExpandedList[categoryIndex],
-                                headerBuilder: (context, isExpanded) {
-                                  return ListTile(
-                                    leading: CachedNetworkImage(
-                                      width: 60,
-                                      height: 60,
-                                      imageUrl:
-                                          "${EnvironmentConstants.imageurl}${controller.AllDataList[categoryIndex].image}",
-                                      placeholder: (context, url) => Center(
-                                          child: CircularProgressIndicator(
-                                        color: sh_colorPrimary,
-                                      )),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
-                                    ),
-                                    // Image.network(
-                                    //   "${EnvironmentConstants.imageurl}${controller.AllDataList[categoryIndex].image}",
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemBuilder: (context, categoryIndex) {
+                            // bool hasSubcategories =
+                            //     _categories[categoryIndex].subcategories.isNotEmpty;
+                            bool hasSubcategories = controller
+                                .AllDataList[categoryIndex].category.isNotEmpty;
+                            return ExpansionPanelList(
+                              elevation: 0,
+                              expansionCallback:
+                                  (int panelIndex, bool isExpanded) {
+                                setState(() {
+                                  controller.isExpandedList[categoryIndex] =
+                                      !isExpanded;
+                                });
+                              },
+                              children: [
+                                ExpansionPanel(
+                                  isExpanded:
+                                      controller.isExpandedList[categoryIndex],
+                                  headerBuilder: (context, isExpanded) {
+                                    return ListTile(
+                                      leading: CachedNetworkImage(
+                                        width: 60,
+                                        height: 60,
+                                        imageUrl:
+                                            "${EnvironmentConstants.imageurl}${controller.AllDataList[categoryIndex].image}",
+                                        placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator(
+                                          color: sh_colorPrimary,
+                                        )),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                      // Image.network(
+                                      //   "${EnvironmentConstants.imageurl}${controller.AllDataList[categoryIndex].image}",
 
-                                    //   // _categories[categoryIndex].imagePath,
-                                    //   width: 60,
-                                    //   height: 60,
-                                    // ),
-                                    title: Text(
-                                            controller
-                                                .AllDataList[categoryIndex]
-                                                .nameEng
-                                                .toString()
-                                                .toUpperCase(),
-                                            // _categories[categoryIndex]
-                                            //     .name
-                                            //     .toUpperCase(),
-                                            style: primaryTextStyle(
-                                                color: appStore.isDarkModeOn
-                                                    ? white
-                                                    : sh_textColorPrimary))
-                                        .onTap(() {
-                                      SubCategory(
-                                              category: controller
-                                                  .AllDataList[categoryIndex])
-                                          .launch(context);
-                                    }),
-                                  );
-                                },
-                                body: hasSubcategories
-                                    ? ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: ClampingScrollPhysics(),
-                                        itemCount: controller
-                                            .AllDataList[categoryIndex]
-                                            .category
-                                            .length,
-                                        itemBuilder:
-                                            (context, subcategoryIndex) {
-                                          // bool hasSubSubcategories =
-                                          //     _categories[categoryIndex]
-                                          //         .subcategories[subcategoryIndex]
-                                          //         .subSubcategories
-                                          //         .isNotEmpty;
-
-                                          // _isSubcategoryExpandedList[categoryIndex]
-                                          //         [subcategoryIndex] =
-                                          //     _isSubcategoryExpandedList[
-                                          //                 categoryIndex]
-                                          //             [subcategoryIndex] &&
-                                          //         hasSubSubcategories;
-                                          bool hasSubSubcategories = controller
+                                      //   // _categories[categoryIndex].imagePath,
+                                      //   width: 60,
+                                      //   height: 60,
+                                      // ),
+                                      title: Text(
+                                              controller
+                                                  .AllDataList[categoryIndex]
+                                                  .nameEng
+                                                  .toString()
+                                                  .toUpperCase(),
+                                              // _categories[categoryIndex]
+                                              //     .name
+                                              //     .toUpperCase(),
+                                              style: primaryTextStyle(
+                                                  fontFamily: fontBold,
+                                                  weight: FontWeight.bold,
+                                                  color: appStore.isDarkModeOn
+                                                      ? white
+                                                      : sh_textColorPrimary))
+                                          .onTap(() {
+                                        SubCategory(
+                                                category: controller
+                                                    .AllDataList[categoryIndex])
+                                            .launch(context);
+                                      }),
+                                    );
+                                  },
+                                  body: hasSubcategories
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: ClampingScrollPhysics(),
+                                          itemCount: controller
                                               .AllDataList[categoryIndex]
-                                              .category[subcategoryIndex]
-                                              .subcategory
-                                              .isNotEmpty;
+                                              .category
+                                              .length,
+                                          itemBuilder:
+                                              (context, subcategoryIndex) {
+                                            // bool hasSubSubcategories =
+                                            //     _categories[categoryIndex]
+                                            //         .subcategories[subcategoryIndex]
+                                            //         .subSubcategories
+                                            //         .isNotEmpty;
 
-                                          controller.isSubcategoryExpandedList[
-                                                      categoryIndex]
-                                                  [subcategoryIndex] =
-                                              controller.isSubcategoryExpandedList[
-                                                          categoryIndex]
-                                                      [subcategoryIndex] &&
-                                                  hasSubSubcategories;
-                                          if (!hasSubSubcategories) {
-                                            return Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 20),
-                                              child: ListTile(
-                                                title: Text(
-                                                        controller
-                                                            .AllDataList[
-                                                                categoryIndex]
-                                                            .category[
-                                                                subcategoryIndex]
-                                                            .nameEng
-                                                            .toString(),
-                                                        style: primaryTextStyle(
-                                                            color: appStore
-                                                                    .isDarkModeOn
-                                                                ? white
-                                                                : sh_textColorPrimary)
+                                            // _isSubcategoryExpandedList[categoryIndex]
+                                            //         [subcategoryIndex] =
+                                            //     _isSubcategoryExpandedList[
+                                            //                 categoryIndex]
+                                            //             [subcategoryIndex] &&
+                                            //         hasSubSubcategories;
+                                            bool hasSubSubcategories =
+                                                controller
+                                                    .AllDataList[categoryIndex]
+                                                    .category[subcategoryIndex]
+                                                    .subcategory
+                                                    .isNotEmpty;
 
-                                                        // _categories[
-                                                        //       categoryIndex]
-                                                        //   .subcategories[subcategoryIndex]
-                                                        //   .name
-                                                        )
-                                                    .onTap(() {
-                                                  // SubSubCategory(
-                                                  //         category: controller
-                                                  //                 .AllDataList[
-                                                  //                     categoryIndex]
-                                                  //                 .category[
-                                                  //             subcategoryIndex])
-                                                  //     .launch(context);
-                                                  controller
-                                                      .getbrandsproducts(controller
-                                                          .AllDataList[
-                                                              categoryIndex]
-                                                          .category[
-                                                              subcategoryIndex]
-                                                          .customId
-                                                          .toString())
-                                                      .then((value) {
-                                                    print(value);
-                                                    if (value == true) {
-                                                      // ProductList().launch(context);
-                                                      Get.to(() => ProductList(
-                                                          brandname: controller
+                                            controller.isSubcategoryExpandedList[
+                                                        categoryIndex]
+                                                    [subcategoryIndex] =
+                                                controller.isSubcategoryExpandedList[
+                                                            categoryIndex]
+                                                        [subcategoryIndex] &&
+                                                    hasSubSubcategories;
+                                            if (!hasSubSubcategories) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20),
+                                                child: ListTile(
+                                                  title: Text(
+                                                          controller
                                                               .AllDataList[
                                                                   categoryIndex]
                                                               .category[
                                                                   subcategoryIndex]
                                                               .nameEng
-                                                              .toString()));
-                                                    }
+                                                              .toString(),
+                                                          style: primaryTextStyle(
+                                                              fontFamily:
+                                                                  fontBold,
+                                                              weight: FontWeight
+                                                                  .w400,
+                                                              color: appStore
+                                                                      .isDarkModeOn
+                                                                  ? white
+                                                                  : sh_textColorPrimary)
+
+                                                          // _categories[
+                                                          //       categoryIndex]
+                                                          //   .subcategories[subcategoryIndex]
+                                                          //   .name
+                                                          )
+                                                      .onTap(() {
+                                                    // SubSubCategory(
+                                                    //         category: controller
+                                                    //                 .AllDataList[
+                                                    //                     categoryIndex]
+                                                    //                 .category[
+                                                    //             subcategoryIndex])
+                                                    //     .launch(context);
+                                                    controller
+                                                        .getbrandsproducts(controller
+                                                            .AllDataList[
+                                                                categoryIndex]
+                                                            .category[
+                                                                subcategoryIndex]
+                                                            .customId
+                                                            .toString())
+                                                        .then((value) {
+                                                      print(value);
+                                                      if (value == true) {
+                                                        // ProductList().launch(context);
+                                                        Get.to(() => ProductList(
+                                                            brandname: controller
+                                                                .AllDataList[
+                                                                    categoryIndex]
+                                                                .category[
+                                                                    subcategoryIndex]
+                                                                .nameEng
+                                                                .toString()));
+                                                      }
+                                                    });
+                                                  }),
+                                                ),
+                                              );
+                                            }
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 20),
+                                              child: ExpansionPanelList(
+                                                elevation: 0,
+                                                expansionCallback:
+                                                    (int panelIndex,
+                                                        bool isExpanded) {
+                                                  setState(() {
+                                                    controller.isSubcategoryExpandedList[
+                                                                categoryIndex]
+                                                            [subcategoryIndex] =
+                                                        !isExpanded;
                                                   });
-                                                }),
-                                              ),
-                                            );
-                                          }
-                                          return Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 20),
-                                            child: ExpansionPanelList(
-                                              elevation: 0,
-                                              expansionCallback:
-                                                  (int panelIndex,
-                                                      bool isExpanded) {
-                                                setState(() {
-                                                  controller.isSubcategoryExpandedList[
-                                                              categoryIndex]
-                                                          [subcategoryIndex] =
-                                                      !isExpanded;
-                                                });
-                                              },
-                                              children: [
-                                                ExpansionPanel(
-                                                  isExpanded: controller
-                                                              .isSubcategoryExpandedList[
-                                                          categoryIndex]
-                                                      [subcategoryIndex],
-                                                  headerBuilder:
-                                                      (context, isExpanded) {
-                                                    return ListTile(
-                                                      title: Text(
-                                                              controller
-                                                                  .AllDataList[
-                                                                      categoryIndex]
-                                                                  .category[
-                                                                      subcategoryIndex]
-                                                                  .nameEng
-                                                                  .toString(),
-                                                              style: primaryTextStyle(
-                                                                  color: appStore
-                                                                          .isDarkModeOn
-                                                                      ? white
-                                                                      : sh_textColorPrimary))
-                                                          .onTap(() {
-                                                        SubSubCategory(
-                                                                category: controller
+                                                },
+                                                children: [
+                                                  ExpansionPanel(
+                                                    isExpanded: controller
+                                                                .isSubcategoryExpandedList[
+                                                            categoryIndex]
+                                                        [subcategoryIndex],
+                                                    headerBuilder:
+                                                        (context, isExpanded) {
+                                                      return ListTile(
+                                                        title: Text(
+                                                                controller
                                                                     .AllDataList[
                                                                         categoryIndex]
-                                                                    .category[subcategoryIndex])
-                                                            .launch(context);
-                                                      }),
-                                                    );
-                                                  },
-                                                  body: hasSubSubcategories
-                                                      ? ListView.builder(
-                                                          shrinkWrap: true,
-                                                          physics:
-                                                              ClampingScrollPhysics(),
-                                                          itemCount: controller
-                                                              .AllDataList[
-                                                                  categoryIndex]
-                                                              .category[
-                                                                  subcategoryIndex]
-                                                              .subcategory
-                                                              .length,
-                                                          itemBuilder: (context,
-                                                              subSubcategoryIndex) {
-                                                            return ListTile(
-                                                              leading:
-                                                                  Container(
-                                                                width: 0.9,
-                                                                height: 24.0,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                              // trailing: Divider(
-                                                              //     height: 1,
-                                                              //     color: Colors
-                                                              //         .black),
-                                                              title: Text(
-                                                                  controller
+                                                                    .category[
+                                                                        subcategoryIndex]
+                                                                    .nameEng
+                                                                    .toString(),
+                                                                style: primaryTextStyle(
+                                                                    fontFamily:
+                                                                        fontBold,
+                                                                    weight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: appStore
+                                                                            .isDarkModeOn
+                                                                        ? white
+                                                                        : sh_textColorPrimary))
+                                                            .onTap(() {
+                                                          SubSubCategory(
+                                                                  category: controller
                                                                       .AllDataList[
                                                                           categoryIndex]
-                                                                      .category[
-                                                                          subcategoryIndex]
-                                                                      .subcategory[
-                                                                          subSubcategoryIndex]
-                                                                      .nameEng
-                                                                      .toString(),
-                                                                  style: primaryTextStyle(
-                                                                      color: appStore
-                                                                              .isDarkModeOn
-                                                                          ? white
-                                                                          : sh_textColorPrimary)),
-                                                              onTap: () {
-                                                                controller
-                                                                    .getbrandsproducts(controller
+                                                                      .category[subcategoryIndex])
+                                                              .launch(context);
+                                                        }),
+                                                      );
+                                                    },
+                                                    body: hasSubSubcategories
+                                                        ? ListView.builder(
+                                                            shrinkWrap: true,
+                                                            physics:
+                                                                ClampingScrollPhysics(),
+                                                            itemCount: controller
+                                                                .AllDataList[
+                                                                    categoryIndex]
+                                                                .category[
+                                                                    subcategoryIndex]
+                                                                .subcategory
+                                                                .length,
+                                                            itemBuilder: (context,
+                                                                subSubcategoryIndex) {
+                                                              return ListTile(
+                                                                leading:
+                                                                    Container(
+                                                                  width: 0.9,
+                                                                  height: 24.0,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                                // trailing: Divider(
+                                                                //     height: 1,
+                                                                //     color: Colors
+                                                                //         .black),
+                                                                title: Text(
+                                                                    controller
                                                                         .AllDataList[
                                                                             categoryIndex]
                                                                         .category[
                                                                             subcategoryIndex]
                                                                         .subcategory[
                                                                             subSubcategoryIndex]
-                                                                        .customId
-                                                                        .toString())
-                                                                    .then(
-                                                                        (value) {
-                                                                  print(value);
-                                                                  if (value ==
-                                                                      true) {
-                                                                    // ProductList().launch(context);
-                                                                    Get.to(() => ProductList(
-                                                                        brandname: controller
-                                                                            .AllDataList[categoryIndex]
-                                                                            .category[subcategoryIndex]
-                                                                            .subcategory[subSubcategoryIndex]
-                                                                            .nameEng
-                                                                            .toString()));
-                                                                  }
-                                                                });
-                                                                // Handle sub-subcategory tap here
-                                                              },
-                                                            );
-                                                          },
-                                                        )
-                                                      : Center(
-                                                          child: Text(
-                                                              'No Sub-Subcategories Available'),
-                                                        ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      )
-                                    : Center(
-                                        child: Text(
-                                          'No Subcategories Available',
-                                          style: TextStyle(color: sh_black),
+                                                                        .nameEng
+                                                                        .toString(),
+                                                                    style: primaryTextStyle(
+                                                                        color: appStore.isDarkModeOn
+                                                                            ? white
+                                                                            : sh_textColorPrimary)),
+                                                                onTap: () {
+                                                                  controller
+                                                                      .getbrandsproducts(controller
+                                                                          .AllDataList[
+                                                                              categoryIndex]
+                                                                          .category[
+                                                                              subcategoryIndex]
+                                                                          .subcategory[
+                                                                              subSubcategoryIndex]
+                                                                          .customId
+                                                                          .toString())
+                                                                      .then(
+                                                                          (value) {
+                                                                    print(
+                                                                        value);
+                                                                    if (value ==
+                                                                        true) {
+                                                                      // ProductList().launch(context);
+                                                                      Get.to(() => ProductList(
+                                                                          brandname: controller
+                                                                              .AllDataList[categoryIndex]
+                                                                              .category[subcategoryIndex]
+                                                                              .subcategory[subSubcategoryIndex]
+                                                                              .nameEng
+                                                                              .toString()));
+                                                                    }
+                                                                  });
+                                                                  // Handle sub-subcategory tap here
+                                                                },
+                                                              );
+                                                            },
+                                                          )
+                                                        : Center(
+                                                            child: Text(
+                                                                'No Sub-Subcategories Available'),
+                                                          ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      : Center(
+                                          child: Text(
+                                            'No Subcategories Available',
+                                            style: TextStyle(color: sh_black),
+                                          ),
                                         ),
-                                      ),
-                              ),
-                            ],
-                          );
-
-                          // ExpansionPanelList(
-                          //   elevation: 0,
-                          //   expansionCallback: (int panelIndex, bool isExpanded) {
-                          //     setState(() {
-                          //       _isExpandedList[index] = !isExpanded;
-                          //     });
-                          //   },
-                          //   children: [
-                          //     ExpansionPanel(
-                          //       isExpanded: _isExpandedList[index],
-                          //       headerBuilder: (context, isExpanded) {
-                          //         return ListTile(
-                          //           leading: Image.asset(
-                          //             _categories[index].imagePath,
-                          //             width: 50,
-                          //             height: 50,
-                          //           ),
-                          //           title: Text(_categories[index].name),
-                          //         );
-                          //       },
-                          //       body: ListView.builder(
-                          //         shrinkWrap: true,
-                          //         physics: ClampingScrollPhysics(),
-                          //         itemCount:
-                          //             _categories[index].subcategories.length,
-                          //         itemBuilder: (context, subindex) {
-                          //           return ExpansionPanelList(
-                          //             expansionCallback:
-                          //                 (int panelIndex, bool isExpanded) {
-                          //               setState(() {
-                          //                 _categories[index]
-                          //                     .subcategories[subindex]
-                          //                     .isExpanded = !isExpanded;
-                          //               });
-                          //             },
-                          //             children: [
-                          //               ExpansionPanel(
-                          //                 isExpanded: _categories[index]
-                          //                     .subcategories[subindex]
-                          //                     .isExpanded,
-                          //                 headerBuilder: (context, isExpanded) {
-                          //                   return ListTile(
-                          //                     // leading: Image.asset(
-                          //                     //   _categories[index]
-                          //                     //       .subcategories[subindex]
-                          //                     //       .imagePath,
-                          //                     //   width: 40,
-                          //                     //   height: 40,
-                          //                     // ),
-                          //                     title: Text(_categories[index]
-                          //                         .subcategories[subindex]
-                          //                         .name),
-                          //                   );
-                          //                 },
-                          //                 body: ListView.builder(
-                          //                   shrinkWrap: true,
-                          //                   physics: ClampingScrollPhysics(),
-                          //                   itemCount: _categories[index]
-                          //                       .subcategories[subindex]
-                          //                       .subSubcategories
-                          //                       .length,
-                          //                   itemBuilder: (context, subSubindex) {
-                          //                     return ListTile(
-                          //                       // leading: Image.asset(
-                          //                       //   _categories[index]
-                          //                       //       .subcategories[subindex]
-                          //                       //       .subSubcategories[subSubindex]
-                          //                       //       .imagePath,
-                          //                       //   width: 30,
-                          //                       //   height: 30,
-                          //                       // ),
-                          //                       title: Text(_categories[index]
-                          //                           .subcategories[subindex]
-                          //                           .subSubcategories[subSubindex]
-                          //                           .name),
-                          //                       onTap: () {
-                          //                         // Handle sub-subcategory tap here
-                          //                       },
-                          //                     );
-                          //                   },
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           );
-                          //         },
-                          //       ),
-                          //     ),
-                          //   ],
-                          // );
-
-                          //  getDrawerItem(
-                          //   _categories[index].imagePath,
-                          //   _categories[index].name,
-                          //   callback: () {
-                          //     // ShSubCategory(category: list[index]).launch(context);
-                          //   },
-                          // );
-                        },
-                      ),
-                      Divider(color: sh_view_color, height: 1),
-                      getDrawerItem(null, sh_lbl_allbrands, callback: () {
-                        Brands().launch(context);
-                      }),
-                      Divider(color: sh_view_color, height: 1),
-                      getDrawerItem(null, sh_lbl_privacy, callback: () {
-                        // controller.masterdata();
-                        PrivacyPolicy().launch(context);
-                      }),
-                      Divider(color: sh_view_color, height: 1),
-                      getDrawerItem(null, sh_lbl_arabic, callback: () {
-                        // ShSettingsScreen().launch(context);
-                      }),
-                      Divider(color: sh_view_color, height: 1),
-                      getDrawerItem(null, sh_lbl_english, callback: () {
-                        // ShSettingsScreen().launch(context);
-                      }),
-                      Divider(color: sh_view_color, height: 1),
-                      getDrawerItem(null, sh_lbl_login_in, callback: () {
-                        ShSignIn().launch(context);
-                        // ShSettingsScreen().launch(context);
-                      }),
-                      Divider(color: sh_view_color, height: 1),
-                      SizedBox(height: 30),
-                      // Divider(color: sh_view_color, height: 1),
-                      SizedBox(height: 20),
-                      getDrawerItem(sh_user_placeholder, sh_lbl_account,
-                          callback: () {
-                        // ShAccountScreen().launch(context);
-
-                        /*bool isWishlist = launchScreen(context, ShAccountScreen.tag) ?? false;
-                    if (isWishlist) {
-                      selectedTab = 1;
-                      setState(() {});
-                    }*/
-                      }),
-                      getDrawerItem(sh_settings, sh_lbl_settings, callback: () {
-                        ShSettingsScreen().launch(context);
-                      }),
-                      SizedBox(height: 20),
-                      // getDrawerItem(null, sh_lbl_faq, callback: () {
-                      //   ShFAQScreen().launch(context);
-                      // }),
-                      getDrawerItem(null, sh_lbl_contact_us, callback: () {
-                        ShContactUsScreen().launch(context);
-                      }),
-                      SizedBox(height: 30),
-                      Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: sh_colorPrimary.withOpacity(0.2)),
-                        padding: EdgeInsets.all(24),
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(ic_app_icon, width: 40),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                text("PETS",
-                                    textColor: sh_textColorPrimary,
-                                    fontSize: textSizeMedium,
-                                    fontFamily: fontBold),
-                                text("QTR",
-                                    textColor: sh_colorPrimary,
-                                    fontSize: textSizeMedium,
-                                    fontFamily: fontBold),
+                                ),
                               ],
-                            ),
-                            4.height,
-                            Text("v 1.0",
-                                style: primaryTextStyle(
-                                    color: appStore.isDarkModeOn
-                                        ? white
-                                        : sh_textColorPrimary,
-                                    size: 14))
-                          ],
+                            );
+
+                            // ExpansionPanelList(
+                            //   elevation: 0,
+                            //   expansionCallback: (int panelIndex, bool isExpanded) {
+                            //     setState(() {
+                            //       _isExpandedList[index] = !isExpanded;
+                            //     });
+                            //   },
+                            //   children: [
+                            //     ExpansionPanel(
+                            //       isExpanded: _isExpandedList[index],
+                            //       headerBuilder: (context, isExpanded) {
+                            //         return ListTile(
+                            //           leading: Image.asset(
+                            //             _categories[index].imagePath,
+                            //             width: 50,
+                            //             height: 50,
+                            //           ),
+                            //           title: Text(_categories[index].name),
+                            //         );
+                            //       },
+                            //       body: ListView.builder(
+                            //         shrinkWrap: true,
+                            //         physics: ClampingScrollPhysics(),
+                            //         itemCount:
+                            //             _categories[index].subcategories.length,
+                            //         itemBuilder: (context, subindex) {
+                            //           return ExpansionPanelList(
+                            //             expansionCallback:
+                            //                 (int panelIndex, bool isExpanded) {
+                            //               setState(() {
+                            //                 _categories[index]
+                            //                     .subcategories[subindex]
+                            //                     .isExpanded = !isExpanded;
+                            //               });
+                            //             },
+                            //             children: [
+                            //               ExpansionPanel(
+                            //                 isExpanded: _categories[index]
+                            //                     .subcategories[subindex]
+                            //                     .isExpanded,
+                            //                 headerBuilder: (context, isExpanded) {
+                            //                   return ListTile(
+                            //                     // leading: Image.asset(
+                            //                     //   _categories[index]
+                            //                     //       .subcategories[subindex]
+                            //                     //       .imagePath,
+                            //                     //   width: 40,
+                            //                     //   height: 40,
+                            //                     // ),
+                            //                     title: Text(_categories[index]
+                            //                         .subcategories[subindex]
+                            //                         .name),
+                            //                   );
+                            //                 },
+                            //                 body: ListView.builder(
+                            //                   shrinkWrap: true,
+                            //                   physics: ClampingScrollPhysics(),
+                            //                   itemCount: _categories[index]
+                            //                       .subcategories[subindex]
+                            //                       .subSubcategories
+                            //                       .length,
+                            //                   itemBuilder: (context, subSubindex) {
+                            //                     return ListTile(
+                            //                       // leading: Image.asset(
+                            //                       //   _categories[index]
+                            //                       //       .subcategories[subindex]
+                            //                       //       .subSubcategories[subSubindex]
+                            //                       //       .imagePath,
+                            //                       //   width: 30,
+                            //                       //   height: 30,
+                            //                       // ),
+                            //                       title: Text(_categories[index]
+                            //                           .subcategories[subindex]
+                            //                           .subSubcategories[subSubindex]
+                            //                           .name),
+                            //                       onTap: () {
+                            //                         // Handle sub-subcategory tap here
+                            //                       },
+                            //                     );
+                            //                   },
+                            //                 ),
+                            //               ),
+                            //             ],
+                            //           );
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ],
+                            // );
+
+                            //  getDrawerItem(
+                            //   _categories[index].imagePath,
+                            //   _categories[index].name,
+                            //   callback: () {
+                            //     // ShSubCategory(category: list[index]).launch(context);
+                            //   },
+                            // );
+                          },
                         ),
-                      ),
-                      SizedBox(height: 30),
-                    ],
+                        Divider(color: sh_view_color, height: 1),
+                        getDrawerItem(null, sh_lbl_allbrands, callback: () {
+                          Brands().launch(context);
+                        }),
+                        Divider(color: sh_view_color, height: 1),
+                        getDrawerItem(null, sh_lbl_privacy, callback: () {
+                          // controller.masterdata();
+                          PrivacyPolicy().launch(context);
+                        }),
+
+                        Divider(color: sh_view_color, height: 1),
+                        getDrawerItem(null, sh_lbl_english, callback: () {
+                          // ShSettingsScreen().launch(context);
+                        }),
+                        Divider(color: sh_view_color, height: 1),
+                        getDrawerItem(null, sh_lbl_login_in, callback: () {
+                          ShSignIn().launch(context);
+                          // ShSettingsScreen().launch(context);
+                        }),
+                        Divider(color: sh_view_color, height: 1),
+                        SizedBox(height: 30),
+                        // Divider(color: sh_view_color, height: 1),
+                        SizedBox(height: 20),
+                        getDrawerItem(sh_user_placeholder, sh_lbl_account,
+                            callback: () {
+                          // ShAccountScreen().launch(context);
+
+                          /*bool isWishlist = launchScreen(context, ShAccountScreen.tag) ?? false;
+                      if (isWishlist) {
+                        selectedTab = 1;
+                        setState(() {});
+                      }*/
+                        }),
+                        getDrawerItem(sh_settings, sh_lbl_settings,
+                            callback: () {
+                          ShSettingsScreen().launch(context);
+                        }),
+                        SizedBox(height: 20),
+                        // getDrawerItem(null, sh_lbl_faq, callback: () {
+                        //   ShFAQScreen().launch(context);
+                        // }),
+                        getDrawerItem(null, sh_lbl_contact_us, callback: () {
+                          ShContactUsScreen().launch(context);
+                        }),
+
+                        SizedBox(height: 30),
+                      ],
+                    ),
                   ),
                 ),
               ),

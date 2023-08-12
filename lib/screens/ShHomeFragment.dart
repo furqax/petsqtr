@@ -2,21 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:juber_car_booking/models/ShCategory.dart';
 import 'package:juber_car_booking/models/ShProduct.dart';
-import 'package:juber_car_booking/screens/ShSubCategory.dart';
-import 'package:juber_car_booking/screens/ShViewAllProducts.dart';
 import 'package:juber_car_booking/utils/ShColors.dart';
 import 'package:juber_car_booking/utils/ShConstant.dart';
 import 'package:juber_car_booking/utils/ShExtension.dart';
 import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:juber_car_booking/utils/ShWidget.dart';
-import 'package:juber_car_booking/utils/dots_indicator/src/dots_decorator.dart';
-import 'package:juber_car_booking/utils/dots_indicator/src/dots_indicator.dart';
 
 import '../api-handler/env_constants.dart';
 import '../controller/home_controller.dart';
-import '../models/categorywithsub.dart';
 import 'Brands/brands.dart';
 import 'Category/subcategory.dart';
 import 'Product/newproducts.dart';
@@ -98,7 +92,7 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                     Column(
                       children: <Widget>[
                         Container(
-                          height: height * 0.55,
+                          height: height * .38,
                           child: Stack(
                             alignment: Alignment.bottomCenter,
                             children: <Widget>[
@@ -108,7 +102,7 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                               // return
                               CachedNetworkImage(
                                 width: width,
-                                height: height * 0.55,
+                                height: height * 0.65,
                                 imageUrl:
                                     "${EnvironmentConstants.bannerimageurl}${controller.AllBanner[0].imgName.toString()}",
                                 placeholder: (context, url) => Center(
@@ -303,7 +297,7 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
 
                         GridView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: 6,
+                          itemCount: 18,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           gridDelegate:
@@ -311,7 +305,7 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                             crossAxisCount: 3,
                             // mainAxisSpacing: spacing_standard,
                             // crossAxisSpacing: spacing_standard,
-                            childAspectRatio: 0.6,
+                            childAspectRatio: 1.2,
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return controller.AllBanner.isNotEmpty
