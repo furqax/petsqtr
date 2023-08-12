@@ -9,6 +9,9 @@ import 'package:juber_car_booking/utils/ShExtension.dart';
 import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:juber_car_booking/utils/ShWidget.dart';
 
+import '../controller/cart.dart';
+import '../models/productdetail.dart' as model;
+
 class ShCartFragment extends StatefulWidget {
   static String tag = '/ShProfileFragment';
 
@@ -18,11 +21,13 @@ class ShCartFragment extends StatefulWidget {
 
 class ShCartFragmentState extends State<ShCartFragment> {
   List<ShProduct> list = [];
-
+  CartSharedPreferences cartSharedPreferences = CartSharedPreferences();
+  List<model.ProductDetail> cartItems = [];
   @override
   void initState() {
     super.initState();
     fetchData();
+    _loadCartItems();
   }
 
   fetchData() async {
@@ -32,6 +37,32 @@ class ShCartFragmentState extends State<ShCartFragment> {
       list.addAll(products);
     });
   }
+
+  void _loadCartItems() async {
+    List<model.ProductDetail> items =
+        await cartSharedPreferences.loadCartItems();
+    setState(() {
+      cartItems = items;
+    });
+  }
+
+  // void _addToCart() async {
+  //   // Check if the product is already in the cart
+  //   bool alreadyInCart = cartItems.any((item) => item.id == widget.product.id);
+
+  //   if (!alreadyInCart) {
+  //     cartItems.add(widget.product);
+  //     await cartSharedPreferences.saveCartItems(cartItems);
+
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Added to cart')),
+  //     );
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Product is already in the cart')),
+  //     );
+  //   }
+  // }
 
   @override
   void setState(fn) {
@@ -44,7 +75,7 @@ class ShCartFragmentState extends State<ShCartFragment> {
     var height = MediaQuery.of(context).size.height;
     var cartList = ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: list.length,
+        itemCount: cartItems.length,
         shrinkWrap: true,
         padding: EdgeInsets.only(bottom: spacing_standard_new),
         physics: NeverScrollableScrollPhysics(),
@@ -59,12 +90,13 @@ class ShCartFragmentState extends State<ShCartFragment> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Image.asset(
-                    "images/pets/dog.png",
+                  Image.network(
+                    cartItems[index].images[0].src,
                     width: width * 0.32,
                     height: width * 0.37,
                     fit: BoxFit.fill,
                   ),
+                  // Text(cartItems.toString()),
                   Expanded(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -76,24 +108,24 @@ class ShCartFragmentState extends State<ShCartFragment> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               8.height,
-                              Text(list[index].name.toString(),
+                              Text(cartItems[index].title.toString(),
                                       style: boldTextStyle())
                                   .paddingOnly(left: 16),
                               4.height,
                               Row(
                                 children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.black),
-                                    padding:
-                                        EdgeInsets.all(spacing_control_half),
-                                    child: Icon(Icons.done,
-                                        color: sh_white, size: 12),
-                                  ),
-                                  8.width,
-                                  Text("M", style: boldTextStyle()),
-                                  8.width,
+                                  // Container(
+                                  //   decoration: BoxDecoration(
+                                  //       shape: BoxShape.circle,
+                                  //       color: Colors.black),
+                                  //   padding:
+                                  //       EdgeInsets.all(spacing_control_half),
+                                  //   child: Icon(Icons.done,
+                                  //       color: sh_white, size: 12),
+                                  // ),
+                                  // 8.width,
+                                  // Text("M", style: boldTextStyle()),
+                                  // 8.width,
                                   Container(
                                     alignment: Alignment.center,
                                     padding: EdgeInsets.fromLTRB(
@@ -110,7 +142,7 @@ class ShCartFragmentState extends State<ShCartFragment> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text("Qty: 5",
+                                        Text("Qty: ${cartItems[index].quantity}",
                                                 style: secondaryTextStyle())
                                             .paddingOnly(left: 8),
                                         Icon(Icons.arrow_drop_down,
@@ -120,7 +152,7 @@ class ShCartFragmentState extends State<ShCartFragment> {
                                     ),
                                   )
                                 ],
-                              ).paddingOnly(left: 16.0, top: spacing_control),
+                              ).paddingOnly(left: 12.0, top: spacing_control),
                               8.height,
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -316,6 +348,7 @@ class ShCartFragmentState extends State<ShCartFragment> {
                 padding: EdgeInsets.only(bottom: 70.0),
                 child: Column(
                   children: [
+                    Text(cartItems.length.toString()),
                     cartList,
                     paymentDetail,
                   ],

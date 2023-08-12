@@ -1,13 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:juber_car_booking/controller/home_controller.dart';
 import 'package:juber_car_booking/utils/ShColors.dart';
 import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter_html/flutter_html.dart';
+import '../../controller/cart.dart';
 import '../../controller/product_list_controller.dart';
 import '../../main.dart';
 import '../../models/Products.dart';
+import '../../models/productdetail.dart';
 import '../../utils/ShConstant.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -22,9 +26,12 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _currentImageIndex = 0;
   ProductListController productcontroller = Get.find<ProductListController>();
+  HomeController homecontroller = Get.find<HomeController>();
+  CartSharedPreferences cartSharedPreferences = CartSharedPreferences();
+  var data;
   String? _selectedSize;
   int price = 0;
-
+  List<ProductDetail> cartItems = [];
   void _selectSize(String? size, int index) {
     setState(() {
       _selectedSize = size;
@@ -58,6 +65,83 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     double discountAmount = (originalPrice * discountPercentage) / 100;
 
     return discountAmount;
+  }
+
+  // void _addToCart() async {
+  //   // Check if the product is already in the cart
+  //   bool alreadyInCart =
+  //       cartItems.any((item) => item.id == productcontroller.productdetail!.id);
+  //   bool alreadyInCartoption = cartItems.any(
+  //       (item) => item.options == productcontroller.productdetail!.options);
+
+  //   if (!alreadyInCart) {
+  //     cartItems.add(productcontroller.productdetail!);
+  //     await cartSharedPreferences.saveCartItems(cartItems);
+
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Added to cart')),
+  //     );
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Product is already in the cart')),
+  //     );
+  //   }
+  // }
+  void _addToCart() async {
+    var productDetail = productcontroller.productdetail!;
+    var existingCartItems = await cartSharedPreferences.loadCartItems();
+    bool notfound = false;
+    // print(existingCartItems);
+    var existingCartItemIndex;
+    // print(existingCartItemIndex);
+    print(data);
+    // Check if the product with the same options is already in the cart
+    existingCartItemIndex = existingCartItems.indexWhere((item) =>
+        item.id == productDetail.id &&
+        listEquals(item.variants, productDetail.variants));
+    for (int i = 0; i < existingCartItems.length; i++) {
+      // print(i);
+      // print(existingCartItems[i].toJson());
+      if (existingCartItems[i].id.toString() ==
+          productcontroller.productdetail!.id.toString()) {
+        print(" matched");
+
+        for (int j = 0; j < existingCartItems[i].quantity!.length; j++) {
+          if (existingCartItems[i].quantity![j].id.toString() ==
+              productDetail.quantity![j].id.toString()) {
+            print("variant matched");
+          }
+        }
+
+        // existingCartItems[existingCartItemIndex].quantity =
+        //     existingCartItems[existingCartItemIndex].quantity! +
+        //         productDetail.quantity!;
+        notfound = true;
+        print("matched");
+      }
+    }
+    // print(existingCartItemIndex);
+    // if (existingCartItemIndex != -1) {
+    //   // Product with the same options exists in the cart, update its quantity
+    //   existingCartItems[existingCartItemIndex].quantity =
+    //       existingCartItems[existingCartItemIndex].quantity! +
+    //           productDetail.quantity!;
+    //   // existingCartItems[existingCartItemIndex].quantity +=
+    //   //     productDetail.quantity!;
+    // } else {
+    // Product is not in the cart, add it with its quantity
+    if (notfound == false) {
+      // productDetail.quantity.add(value)
+
+      existingCartItems.add(productDetail);
+    }
+    // }
+
+    // await cartSharedPreferences.saveCartItems(existingCartItems);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Added to cart')),
+    );
   }
 
   @override
@@ -131,25 +215,30 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
               SizedBox(height: height * 0.02),
-              Center(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Text(
-                      'QTR  ${productcontroller.productdetail!.variants![price].compareAtPrice.toString()}',
-                      style: TextStyle(
-                        fontSize: 20,
-                        // fontWeight: FontWeight.bold,
+              productcontroller.productdetail!.variants![price].compareAtPrice
+                          .toString() !=
+                      "null"
+                  ? Center(
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Text(
+                            'QTR  ${productcontroller.productdetail!.variants![price].compareAtPrice.toString()}',
+                            style: TextStyle(
+                              fontSize: 20,
+                              // fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Container(
+                            height: 1,
+                            width: 100,
+                            color:
+                                Colors.black, // Customize the color of the line
+                          ),
+                        ],
                       ),
-                    ),
-                    Container(
-                      height: 1,
-                      width: 100,
-                      color: Colors.black, // Customize the color of the line
-                    ),
-                  ],
-                ),
-              ),
+                    )
+                  : Container(),
               // Text(
               //   calculateDiscount(
               //           double.parse(productcontroller
@@ -196,48 +285,43 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
               SizedBox(height: height * 0.01),
-              GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: productcontroller.productdetail!.variants!.length,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      // mainAxisSpacing: spacing_standard,
-                      // crossAxisSpacing: spacing_standard,
-                      childAspectRatio: 1.5),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => _selectSize(
-                          '${productcontroller.productdetail!.variants![index].barcode}',
-                          index),
-                      child: _buildSizeOption(
-                          '${productcontroller.productdetail!.variants![index].barcode}'),
-                    );
-                  }),
-              // GestureDetector(
-              //   onTap: () => _selectSize(
-              //       '${productcontroller.productdetail!.variants![0].barcode}'),
-              //   child: _buildSizeOption(
-              //       '${productcontroller.productdetail!.variants![0].fulfillmentService}'),
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     GestureDetector(
-              //       onTap: () => _selectSize('S'),
-              //       child: _buildSizeOption('S'),
-              //     ),
-              //     GestureDetector(
-              //       onTap: () => _selectSize('M'),
-              //       child: _buildSizeOption('M'),
-              //     ),
-              //     GestureDetector(
-              //       onTap: () => _selectSize('L'),
-              //       child: _buildSizeOption('L'),
-              //     ),
-              //   ],
-              // ),
+              productcontroller.productdetail!.variants![0].title
+                          .toString()
+                          .toLowerCase() !=
+                      "default title"
+                  ? GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount:
+                          productcontroller.productdetail!.variants!.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          // mainAxisSpacing: spacing_standard,
+                          // crossAxisSpacing: spacing_standard,
+                          childAspectRatio: 1.5),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            data = {
+                              "id": productcontroller
+                                  .productdetail!.variants![index].id,
+                              "productid": productcontroller.productdetail!.id,
+                              "title": productcontroller.productdetail!.title,
+                              "price": productcontroller
+                                  .productdetail!.variants![price].price,
+                              "sku": ""
+                            };
+                            _selectSize(
+                                '${productcontroller.productdetail!.variants![index].title}',
+                                index);
+                          },
+                          child: _buildSizeOption(
+                              '${productcontroller.productdetail!.variants![index].title}'),
+                        );
+                      })
+                  : Container(),
+
               SizedBox(height: height * 0.02),
               Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -259,7 +343,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         ),
                       ),
                     ),
-                  ),
+                  ).onTap(() {
+                    _addToCart();
+                    // print(productcontroller.productdetail!.toJson());
+                    // ProductDetail? newaddtocart =
+                    //     productcontroller.productdetail;
+                    // homecontroller.saveProductDetailsList(newaddtocart);
+                    // print(newaddtocart);
+                  }),
                   SizedBox(height: height * 0.02),
                   Container(
                     height: height * 0.06,
@@ -325,7 +416,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        // padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
           border: Border.all(
             color: _selectedSize == size ? sh_colorPrimary : Colors.grey,
@@ -333,12 +424,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text(
-          size,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: _selectedSize == size ? sh_colorPrimary : Colors.black,
+        child: Center(
+          child: Text(
+            size,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: _selectedSize == size ? sh_colorPrimary : Colors.black,
+            ),
           ),
         ),
       ),

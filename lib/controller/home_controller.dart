@@ -5,6 +5,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../api-handler/api-repo.dart';
 import '../models/collection_product.dart';
+import '../models/privacy.dart';
+import '../models/productdetail.dart';
 import '../screens/Product/productlist.dart';
 
 class HomeController extends GetxController {
@@ -14,7 +16,10 @@ class HomeController extends GetxController {
   var AllBrands = List<Brand>.empty(growable: true).obs;
   var AllBanner = List<Slider>.empty(growable: true).obs;
   var brandproduct = List<Products>.empty(growable: true).obs;
+  var newproduct = List<Products>.empty(growable: true).obs;
 
+  var privacy = List<Privacy>.empty(growable: true).obs;
+  String newproductcollectionid = "";
   List<bool> isExpandedList = [];
   List<List<bool>> isSubcategoryExpandedList = [];
   @override
@@ -29,6 +34,7 @@ class HomeController extends GetxController {
             AllDataList[categoryIndex].category.length, (index) => false),
       );
     });
+    masterdata();
   }
 
   @override
@@ -51,10 +57,20 @@ class HomeController extends GetxController {
         var parsingList = listData.map((m) => Department.fromJson(m)).toList();
 
         AllDataList.addAll(parsingList); // add new items to your list
-        print("AllDataList ${AllDataList.length}");
+        for (int i = 0; i <= AllDataList.length; i++) {
+          if (AllDataList[i].nameEng.toString().toLowerCase() ==
+              "new products") {
+            newproductcollectionid = AllDataList[i].customId.toString();
+            break;
+          }
+        }
+        print("newproductcollectionid ${newproductcollectionid}");
 
+        AllDataList.removeWhere(
+            (item) => item.nameEng.toString().toLowerCase() == "new products");
+        getnewproducts(newproductcollectionid);
         List listData2 = response.data['brand'];
-        print("listData brand ${listData2[2].toString()}");
+        // print("listData brand ${listData2[2].toString()}");
 
         var parsingList2 = listData2.map((m) => Brand.fromJson(m)).toList();
 
@@ -88,33 +104,128 @@ class HomeController extends GetxController {
 
   Future<bool> getbrandsproducts(String id) async {
     print("call getbrands");
-    // try {
-    EasyLoading.show();
-    var response = await apiRepository.getbrandsproducts(id);
-    if (response.data['products'].toString() != "[]") {
-      List listData = response.data['products'];
-      print("listData ${listData.length}");
-      var parsingList = listData.map((m) => Products.fromJson(m)).toList();
-      brandproduct.clear();
-      brandproduct.addAll(parsingList); // add new items to your list
-      print("brandproduct ${brandproduct.length}");
-      update();
-      EasyLoading.dismiss();
+    try {
+      EasyLoading.show();
+      var response = await apiRepository.getbrandsproducts(id);
+      if (response.data['products'].toString() != "[]") {
+        List listData = response.data['products'];
+        print("listData ${listData.length}");
+        var parsingList = listData.map((m) => Products.fromJson(m)).toList();
+        brandproduct.clear();
+        brandproduct.addAll(parsingList); // add new items to your list
+        print("brandproduct ${brandproduct.length}");
+        update();
+        EasyLoading.dismiss();
 
-      return true;
-    } else {
-      EasyLoading.dismiss();
+        return true;
+      } else {
+        EasyLoading.dismiss();
 
+        return false;
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+      print("error $e");
+      // handle error
       return false;
+    } finally {
+      EasyLoading.dismiss();
+      // isLoading.value = false; // set loading to false after operation
     }
-    // } catch (e) {
-    //   EasyLoading.dismiss();
-    //   print("error $e");
-    //   // handle error
-    //   return false;
-    // } finally {
-    //   EasyLoading.dismiss();
-    //   // isLoading.value = false; // set loading to false after operation
-    // }
+  }
+
+  Future<bool> getnewproducts(String id) async {
+    print("call new product");
+    try {
+      EasyLoading.show();
+      var response = await apiRepository.getbrandsproducts(id);
+      if (response.data['products'].toString() != "[]") {
+        List listData = response.data['products'];
+        print("listData ${listData.length}");
+        var parsingList = listData.map((m) => Products.fromJson(m)).toList();
+        newproduct.clear();
+        newproduct.addAll(parsingList); // add new items to your list
+        print("newproduct ${newproduct.length}");
+        update();
+        EasyLoading.dismiss();
+
+        return true;
+      } else {
+        EasyLoading.dismiss();
+
+        return false;
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+      print("error $e");
+      // handle error
+      return false;
+    } finally {
+      EasyLoading.dismiss();
+      // isLoading.value = false; // set loading to false after operation
+    }
+  }
+
+  Future<bool> masterdata() async {
+    print("call getbrands");
+    try {
+      EasyLoading.show();
+      var response = await apiRepository.getmasterdata();
+      print(response.data);
+      if (response.data['data'].toString() != "[]") {
+        List listData = response.data['data'];
+        print("listData ${listData.length}");
+        var parsingList = listData.map((m) => Privacy.fromJson(m)).toList();
+        privacy.clear();
+        privacy.addAll(parsingList); // add new items to your list
+        print("privacy ${privacy.length}");
+        update();
+        EasyLoading.dismiss();
+
+        return true;
+      } else {
+        EasyLoading.dismiss();
+
+        return false;
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+      print("error $e");
+      // handle error
+      return false;
+    } finally {
+      EasyLoading.dismiss();
+      // isLoading.value = false; // set loading to false after operation
+    }
+  }
+
+  Future<void> saveProductDetailsList(List<ProductDetail> productList) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Serialize each ProductDetail object to a Map<String, dynamic> and convert to List<Map<String, dynamic>>.
+    List<Map<String, dynamic>> productMapList =
+        productList.map((product) => product.toJson()).toList();
+
+    // Save the serialized list to shared preferences.
+    await prefs.setStringList('productDetailsList',
+        productMapList.map((map) => map.toString()).toList());
+  }
+
+  Future<List<ProductDetail>> getProductDetailsList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Retrieve the serialized list from shared preferences.
+    List<String> serializedList =
+        prefs.getStringList('productDetailsList') ?? [];
+
+    // Deserialize each Map<String, dynamic> to a ProductDetail object.
+    List<ProductDetail> productList = serializedList.map((serialized) {
+      Map<String, dynamic> productMap = Map<String, dynamic>.from(
+          Map<String, dynamic>.fromIterable(serialized.split(','),
+              key: (k) => 'serialized', value: (v) => v));
+      return ProductDetail.fromJson(productMap);
+    }).toList();
+
+    return productList;
   }
 }

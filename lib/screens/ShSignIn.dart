@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:juber_car_booking/screens/ShHomeScreen.dart';
 import 'package:juber_car_booking/screens/ShSignUp.dart';
@@ -8,6 +9,8 @@ import 'package:juber_car_booking/utils/ShConstant.dart';
 import 'package:juber_car_booking/utils/ShImages.dart';
 import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:juber_car_booking/utils/ShWidget.dart';
+
+import '../controller/auth_controller.dart';
 
 class ShSignIn extends StatefulWidget {
   static String tag = '/ShSignIn';
@@ -20,6 +23,7 @@ class ShSignInState extends State<ShSignIn> {
   var emailCont = TextEditingController();
   var passwordCont = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  AuthController controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +146,16 @@ class ShSignInState extends State<ShSignIn> {
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(40.0)),
                         color: sh_colorPrimary,
-                        onPressed: () => {
-                          ShHomeScreen().launch(context),
+                        onPressed: () {
+                          controller
+                              .login("${emailCont.text.toString()}",
+                                  "${passwordCont.text.toString()}")
+                              .then((value) {
+                            if (value == true) {
+                              print("login val${value}");
+                              ShHomeScreen().launch(context);
+                            }
+                          });
                         },
                       ),
                     ),

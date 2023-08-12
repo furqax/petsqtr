@@ -1,18 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:juber_car_booking/main.dart';
 import 'package:juber_car_booking/models/ShProduct.dart';
 import 'package:juber_car_booking/screens/ShCartScreen.dart';
-import 'package:juber_car_booking/screens/ShProductDetail.dart';
 import 'package:juber_car_booking/utils/ShColors.dart';
-import 'package:juber_car_booking/utils/ShExtension.dart';
 import 'package:juber_car_booking/utils/ShImages.dart';
 import 'package:juber_car_booking/utils/dots_indicator/src/dots_decorator.dart';
 import 'package:juber_car_booking/utils/dots_indicator/src/dots_indicator.dart';
 
+import '../controller/home_controller.dart';
+import '../controller/product_list_controller.dart';
+import '../screens/Product/product_detail.dart';
 import 'ShConstant.dart';
 import 'ShStrings.dart';
+import '../models/collection_product.dart' as model;
 
 var textFiledBorderStyle = OutlineInputBorder(
     borderRadius: BorderRadius.circular(32.0),
@@ -30,10 +34,11 @@ InputDecoration formFieldDecoration(String hintText) {
 
 // ignore: must_be_immutable
 class ProductHorizontalList extends StatelessWidget {
-  List<ShProduct> list = [];
-  var isHorizontal = false;
+  // List<model.Products> list = [];
+  // var isHorizontal = false;
 
-  ProductHorizontalList(this.list, {this.isHorizontal = false});
+  // ProductHorizontalList(this.list, {this.isHorizontal = false});
+  HomeController controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,75 +47,96 @@ class ProductHorizontalList extends StatelessWidget {
     return Container(
       height: 250,
       margin: EdgeInsets.only(top: spacing_standard_new),
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 5,
-          shrinkWrap: true,
-          padding: EdgeInsets.only(right: spacing_standard_new),
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.only(left: spacing_standard_new),
-              width: width * 0.4,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ShProductDetail(product: list[index])));
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Image.asset(
-                        // "images/pets/dog.png",
-                        // "images/shophop/img/products" +
-                        list[index].images![0].src!,
-                        width: double.infinity,
-                        height: 160,
-                        fit: BoxFit.cover),
-                    SizedBox(height: spacing_standard),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(list[index].name!,
-                                maxLines: 2, style: boldTextStyle())
-                            .expand(),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              list[index]
-                                  .regular_price
-                                  .toString()
-                                  .toCurrencyFormat()!,
-                              style: secondaryTextStyle(),
+      child: controller.newproduct.isNotEmpty
+          ? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              shrinkWrap: true,
+              padding: EdgeInsets.only(right: spacing_standard_new),
+              itemBuilder: (context, index) {
+                return
+                    // Obx(() =>
+                    controller.newproduct[index].images.toString() != "[]"
+                        ? Container(
+                            margin: EdgeInsets.only(left: spacing_standard_new),
+                            width: width * 0.4,
+                            child: InkWell(
+                              onTap: () {
+                                print("tap");
+                                Get.put(ProductListController(Get.find()));
+                                ProductListController productcontroller =
+                                    Get.find<ProductListController>();
+
+                                productcontroller
+                                    .getproductsdetail(controller
+                                        .newproduct[index].id
+                                        .toString())
+                                    .then((value) {
+                                  if (value == true) {
+                                    ProductDetailPage(
+                                            // product: controller.newproduct[index],
+                                            )
+                                        .launch(context);
+                                  }
+                                });
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  // Image.network(
+                                  //     // "images/pets/dog.png",
+                                  //     // "images/shophop/img/products" +
+                                  //     controller.newproduct[index].images[0]!.src.toString(),
+                                  //     width: double.infinity,
+                                  //     height: 160,
+                                  //     fit: BoxFit.cover),
+                                  controller.newproduct[index].images
+                                              .toString() !=
+                                          "[]"
+                                      ? CachedNetworkImage(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.5,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.2,
+                                          imageUrl:
+                                              "${controller.newproduct[index].images[0]!.src.toString()}",
+                                          placeholder: (context, url) => Center(
+                                              child: CircularProgressIndicator(
+                                            color: sh_colorPrimary,
+                                          )),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        )
+                                      : SizedBox(),
+                                  SizedBox(height: spacing_standard),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(controller.newproduct[index].title!,
+                                              maxLines: 2,
+                                              style: boldTextStyle())
+                                          .expand(),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[],
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                            SizedBox(width: spacing_control_half),
-                            text(
-                              list[index].on_sale!
-                                  ? list[index]
-                                      .sale_price
-                                      .toString()
-                                      .toCurrencyFormat()
-                                  : list[index]
-                                      .price
-                                      .toString()
-                                      .toCurrencyFormat(),
-                              textColor: sh_colorPrimary,
-                              fontFamily: fontMedium,
-                              fontSize: textSizeMedium,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+                          )
+                        : Container();
+                // );
+              })
+          : Container(),
     );
   }
 }
@@ -583,7 +609,7 @@ Widget text(
     overflow: TextOverflow.ellipsis,
     style: TextStyle(
       fontFamily: fontFamily ?? null,
-      fontWeight: bold ? FontWeight.w900 : null,
+      fontWeight: bold ? FontWeight.bold : null,
       fontSize: fontSize,
       color: textColor ?? appStore.textSecondaryColor,
       height: 1.5,

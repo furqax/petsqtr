@@ -55,12 +55,12 @@ class SubCategoryState extends State<SubCategory> {
       appBar: AppBar(
         iconTheme: IconThemeData(
             color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.search,
-                  color: appStore.isDarkModeOn ? white : sh_textColorPrimary)),
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {},
+        //       icon: Icon(Icons.search,
+        //           color: appStore.isDarkModeOn ? white : sh_textColorPrimary)),
+        // ],
         title: Text(
           widget.category!.nameEng!,
           style: boldTextStyle(size: 18),

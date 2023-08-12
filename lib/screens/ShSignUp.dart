@@ -1,11 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:juber_car_booking/utils/ShColors.dart';
 import 'package:juber_car_booking/utils/ShConstant.dart';
 import 'package:juber_car_booking/utils/ShImages.dart';
 import 'package:juber_car_booking/utils/ShStrings.dart';
 import 'package:juber_car_booking/utils/ShWidget.dart';
+
+import '../controller/auth_controller.dart';
 
 class ShSignUp extends StatefulWidget {
   static String tag = '/ShSignUp';
@@ -20,6 +25,8 @@ class ShSignUpState extends State<ShSignUp> {
   var confirmPasswordCont = TextEditingController();
   var firstNameCont = TextEditingController();
   var lastNameCont = TextEditingController();
+
+  AuthController controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +241,13 @@ class ShSignUpState extends State<ShSignUp> {
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(40.0)),
                         color: sh_colorPrimary,
-                        onPressed: () => {},
+                        onPressed: () => {
+                          controller.signup(
+                              emailCont.text.toString(),
+                              passwordCont.text.toString(),
+                              firstNameCont.text.toString(),
+                              lastNameCont.text.toString())
+                        },
                       ),
                     ),
                     16.height,
@@ -253,7 +266,14 @@ class ShSignUpState extends State<ShSignUp> {
                             borderRadius: new BorderRadius.circular(40.0),
                             side: BorderSide(color: sh_colorPrimary, width: 1)),
                         color: context.cardColor,
-                        onPressed: () => {finish(context)},
+                        onPressed: () {
+                          // EasyLoading.show();
+                          // controller.login(
+                          //   "testcode@gmail.com",
+                          //   "12345678",
+                          // );
+                          finish(context);
+                        },
                       ),
                     )
                   ],

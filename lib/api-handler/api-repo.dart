@@ -54,6 +54,14 @@ class ApiRepository {
         .execute((response) => response);
   }
 
+  Future getmasterdata() async {
+    return _apiHelperapi
+        .getWithoutParams(
+          "${ApiConstant.masterdata}",
+        )
+        .execute((response) => response);
+  }
+
   Future singleproductdetail(String id) async {
     return _apiHelper
         .getWithoutParams(

@@ -23,16 +23,12 @@ import '../../models/categorywithsub.dart';
 import '../ShViewAllProducts.dart';
 
 // ignore: must_be_immutable
-class ProductList extends StatefulWidget {
-  String? brandname;
-
-  ProductList({required this.brandname});
-
+class NewPriduct extends StatefulWidget {
   @override
-  ProductListState createState() => ProductListState();
+  NewPriductState createState() => NewPriductState();
 }
 
-class ProductListState extends State<ProductList> {
+class NewPriductState extends State<NewPriduct> {
   HomeController controller = Get.find<HomeController>();
 
   @override
@@ -60,7 +56,7 @@ class ProductListState extends State<ProductList> {
         //           color: appStore.isDarkModeOn ? white : sh_textColorPrimary)),
         // ],
         title: Text(
-          widget.brandname!,
+          "New Products",
           style: boldTextStyle(size: 18),
         ),
       ),
@@ -72,7 +68,7 @@ class ProductListState extends State<ProductList> {
             ),
             GridView.builder(
               physics: NeverScrollableScrollPhysics(),
-              itemCount: controller.brandproduct.length,
+              itemCount: controller.newproduct.length,
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -90,14 +86,14 @@ class ProductListState extends State<ProductList> {
                         color: sh_black.withOpacity(0.2),
                       )),
                       // color: Colors.amberAccent,
-                      child: controller.brandproduct[index].images.length
+                      child: controller.newproduct[index].images.length
                                   .toString() !=
                               "0"
                           ? CachedNetworkImage(
                               width: 170,
                               height: 170,
                               imageUrl:
-                                  "${controller.brandproduct[index].images[0].src}",
+                                  "${controller.newproduct[index].images[0].src}",
                               placeholder: (context, url) => Center(
                                   child: CircularProgressIndicator(
                                 color: sh_colorPrimary,
@@ -112,7 +108,7 @@ class ProductListState extends State<ProductList> {
                               // color: sh_white,
                             ),
                       //  Image.network(
-                      //   "${controller.brandproduct[index].images[0].src}",
+                      //   "${controller.newproduct[index].images[0].src}",
                       //   width: 170,
                       //   height: 170,
                       //   // color: sh_white,
@@ -130,7 +126,7 @@ class ProductListState extends State<ProductList> {
                               SizedBox(
                                 width: 160,
                                 child: Text(
-                                  "${controller.brandproduct[index].title.toString().toUpperCase()}",
+                                  "${controller.newproduct[index].title.toString().toUpperCase()}",
                                   style: TextStyle(
                                     color: sh_black,
                                     fontSize: 15.0,
@@ -143,24 +139,6 @@ class ProductListState extends State<ProductList> {
                               ),
                             ],
                           ),
-                          // Row(
-                          //   children: [
-                          //     SizedBox(
-                          //       width: 160,
-                          //       child: Text(
-                          //         "${controller.brandproduct[index]..toString().toUpperCase()} ${products[index].currency.toString().toUpperCase()}",
-                          //         style: TextStyle(
-                          //           color: sh_colorPrimary,
-                          //           fontSize: 15.0,
-
-                          //           // fontWeight: FontWeight.bold,
-                          //         ),
-                          //         maxLines: 1,
-                          //         overflow: TextOverflow.ellipsis,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ),
@@ -173,11 +151,11 @@ class ProductListState extends State<ProductList> {
 
                   productcontroller
                       .getproductsdetail(
-                          controller.brandproduct[index].id.toString())
+                          controller.newproduct[index].id.toString())
                       .then((value) {
                     if (value == true) {
                       ProductDetailPage(
-                              // product: controller.brandproduct[index],
+                              // product: controller.newproduct[index],
                               )
                           .launch(context);
                     }

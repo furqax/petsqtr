@@ -29,31 +29,32 @@ class ProductListController extends GetxController {
 
   Future<bool> getproductsdetail(String id) async {
     EasyLoading.show();
-    try {
-      var response = await apiRepository.singleproductdetail(id);
-      if (response.data['product'].toString() != "[]") {
-        print(response.data['product']);
-        print(response.data['product']["variants"]);
+    // try {
+    var response = await apiRepository.singleproductdetail(id);
+    // print("object ${response.data['product']['quantity']}");
+    if (response.data['product'].toString() != "[]") {
+      print(response.data['product']);
+      print(response.data['product']["variants"]);
 
-        productdetail = ProductDetail.fromJson(response.data['product']);
-        EasyLoading.dismiss();
-
-        return true;
-      } else {
-        EasyLoading.dismiss();
-
-        return false;
-      }
-    } catch (e) {
+      productdetail = ProductDetail.fromJson(response.data['product']);
       EasyLoading.dismiss();
 
-      print("error $e");
-      // handle error
+      return true;
+    } else {
+      EasyLoading.dismiss();
+
       return false;
-    } finally {
-      EasyLoading.dismiss();
-
-      // isLoading.value = false; // set loading to false after operation
     }
+    // } catch (e) {
+    //   EasyLoading.dismiss();
+
+    //   print("error $e");
+    //   // handle error
+    //   return false;
+    // } finally {
+    //   EasyLoading.dismiss();
+
+    //   // isLoading.value = false; // set loading to false after operation
+    // }
   }
 }

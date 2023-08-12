@@ -26,6 +26,7 @@ const sh_lbl_wish_list = "Wishlist";
 const sh_lbl_account = "Account";
 const sh_lbl_settings = "Settings";
 const sh_lbl_allbrands = "All Brands";
+const sh_lbl_privacy = "Privacy Policy";
 
 const sh_lbl_faq = "FAQ";
 const sh_lbl_help = "Help";
@@ -58,8 +59,7 @@ const sh_lbl_reviews = "Reviews";
 const sh_lbl_filter = "Filters";
 const sh_lbl_categories = "Categories";
 const sh_lbl_shopbycategories = "Shop By Category";
-const sh_lbl_browsebypets = "Shop By Pets";
-const sh_lbl_browsebybrands = "Shop By Brands";
+const sh_lbl_browsebypets = "Shop By Category";
 
 const sh_lbl_more = "More";
 const sh_lbl_price = "Price";

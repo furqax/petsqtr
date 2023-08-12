@@ -16,26 +16,26 @@ class AutoGenerate {
 }
 
 class ProductDetail {
-  ProductDetail({
-    required this.id,
-    required this.title,
-    required this.bodyHtml,
-    required this.vendor,
-    required this.productType,
-    required this.createdAt,
-    required this.handle,
-    required this.updatedAt,
-    required this.publishedAt,
-    required this.templateSuffix,
-    required this.status,
-    required this.publishedScope,
-    required this.tags,
-    required this.adminGraphqlApiId,
-    required this.variants,
-    required this.options,
-    required this.images,
-    required this.image,
-  });
+  ProductDetail(
+      {required this.id,
+      required this.title,
+      required this.bodyHtml,
+      required this.vendor,
+      required this.productType,
+      required this.createdAt,
+      required this.handle,
+      required this.updatedAt,
+      required this.publishedAt,
+      required this.templateSuffix,
+      required this.status,
+      required this.publishedScope,
+      required this.tags,
+      required this.adminGraphqlApiId,
+      required this.variants,
+      required this.options,
+      required this.images,
+      required this.image,
+      this.quantity});
   late final int? id;
   late final String? title;
   late final String? bodyHtml;
@@ -47,10 +47,14 @@ class ProductDetail {
   late final String? publishedAt;
   late final String? templateSuffix;
   late final String? status;
+  // late final int? quantity;
+
   late final String? publishedScope;
   late final String? tags;
   late final String? adminGraphqlApiId;
   late final List<Variants>? variants;
+  late final List<Quantity>? quantity;
+
   late final List<Options> options;
   late final List<Images> images;
   late final Image image;
@@ -60,6 +64,8 @@ class ProductDetail {
     title = json['title'];
     bodyHtml = json['body_html'];
     vendor = json['vendor'];
+    quantity = json['quantity'];
+
     productType = json['product_type'];
     createdAt = json['created_at'];
     handle = json['handle'];
@@ -78,6 +84,9 @@ class ProductDetail {
 
     options =
         List.from(json['options']).map((e) => Options.fromJson(e)).toList();
+    // quantity = json['product']['quantity'] == null
+    //     ? []
+    //     : List.from(json['quantity']).map((e) => Quantity.fromJson(e)).toList();
     images = List.from(json['images']).map((e) => Images.fromJson(e)).toList();
     image = Image.fromJson(json['image']);
   }
@@ -99,6 +108,8 @@ class ProductDetail {
     _data['tags'] = tags;
     _data['admin_graphql_api_id'] = adminGraphqlApiId;
     _data['variants'] = variants!.map((e) => e.toJson()).toList();
+    _data['quantity'] = quantity!.map((e) => e.toJson()).toList();
+
     _data['options'] = options!.map((e) => e.toJson()).toList();
     _data['images'] = images!.map((e) => e.toJson()).toList();
     _data['image'] = image.toJson();
@@ -219,6 +230,40 @@ class Variants {
     _data['old_inventory_quantity'] = oldInventoryQuantity;
     _data['requires_shipping'] = requiresShipping;
     _data['admin_graphql_api_id'] = adminGraphqlApiId;
+    return _data;
+  }
+}
+
+class Quantity {
+  Quantity({
+    required this.id,
+    required this.productId,
+    required this.title,
+    required this.price,
+    required this.sku,
+  });
+  late final int? id;
+  late final int? productId;
+  late final String? title;
+  late final String? price;
+  late final String? sku;
+
+  Quantity.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    productId = json['product_id'];
+    title = json['title'];
+    price = json['price'];
+    sku = json['sku'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['product_id'] = productId;
+    _data['title'] = title;
+    _data['price'] = price;
+    _data['sku'] = sku;
+
     return _data;
   }
 }

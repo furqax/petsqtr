@@ -14,5 +14,9 @@ class AppPages {
       page: () => ShHomeScreen(),
       binding: HomeBinding(),
     ),
+    // GetPage(
+    //   name: _Paths.AddtoCart,
+    //   page: () => CartPage(),
+    // ),
   ];
 }

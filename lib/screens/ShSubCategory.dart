@@ -138,7 +138,7 @@ class ShSubCategoryState extends State<ShSubCategory> {
                           prodcuts: newestProducts,
                           title: sh_lbl_newest_product)));
             }),
-            ProductHorizontalList(newestProducts),
+            // ProductHorizontalList(newestProducts),
             SizedBox(height: spacing_standard_new),
             horizontalHeading(sh_lbl_Featured, callback: () {
               Navigator.push(
@@ -147,7 +147,7 @@ class ShSubCategoryState extends State<ShSubCategory> {
                       builder: (context) => ShViewAllProductScreen(
                           prodcuts: featuredProducts, title: sh_lbl_Featured)));
             }),
-            ProductHorizontalList(featuredProducts),
+            // ProductHorizontalList(featuredProducts),
             SizedBox(height: spacing_large),
           ],
         ),
