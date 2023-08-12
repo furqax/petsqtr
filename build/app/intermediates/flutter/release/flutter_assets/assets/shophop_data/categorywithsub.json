@@ -1,0 +1,306 @@
+[
+  {
+    "name": "Dogs",
+    "imagePath": "images/pets/homedog.png",
+    "subcategories": [
+      {
+        "name": "Food & Treat",
+        "imagePath": "images/pets/homedog.png",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Collar,Harness",
+        "imagePath": "images/pets/homedog.png",
+        "subSubcategories": [
+          {
+            "name": "SubSubcategory 1.2.1",
+            "imagePath": "images/pets/homedog.png"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Dog Beding",
+        "imagePath": "images/pets/homedog.png",
+        "subSubcategories": [
+          {
+            "name": "SubSubcategory 1.3.1",
+            "imagePath": "images/pets/homedog.png"
+          },
+          {
+            "name": "SubSubcategory 1.3.2",
+            "imagePath": "images/pets/homedog.png"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  },
+  {
+    "name": "Cats",
+    "imagePath": "images/pets/homecat.png",
+    "subcategories": [
+      {
+        "name": "Cats 1",
+        "imagePath": "images/pets/homecat.png",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Cats 1.2",
+        "imagePath": "images/pets/homecat.png",
+        "subSubcategories": [
+          {
+            "name": "Cats 1.2.1",
+            "imagePath": "images/pets/homecat.png"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Cats 1.3",
+        "imagePath": "images/pets/homecat.png",
+        "subSubcategories": [
+          {
+            "name": "Cats 1.3.1",
+            "imagePath": "images/pets/homecat.png"
+          },
+          {
+            "name": "Cats 1.3.2",
+            "imagePath": "images/pets/homecat.png"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  },
+  {
+    "name": "Birds",
+    "imagePath": "images/pets/homebirds.png",
+    "subcategories": [
+      {
+        "name": "Birds 1",
+        "imagePath": "images/pets/homebirds.png",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Birds 1.2",
+        "imagePath": "images/pets/homebirds.png",
+        "subSubcategories": [
+          {
+            "name": "Birds 1.2.1",
+            "imagePath": "images/pets/homebirds.png"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Birds 1.3",
+        "imagePath": "images/pets/homecat.png",
+        "subSubcategories": [
+          {
+            "name": "Birds 1.3.1",
+            "imagePath": "images/pets/homebirds.png"
+          },
+          {
+            "name": "Birds 1.3.2",
+            "imagePath": "images/pets/homebirds.png"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  },
+  {
+    "name": "Fish",
+    "imagePath": "images/pets/fish.jpg",
+    "subcategories": [
+      {
+        "name": "Fish 1",
+        "imagePath": "images/pets/fish.jpg",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Fish 1.2",
+        "imagePath": "images/pets/fish.jpg",
+        "subSubcategories": [
+          {
+            "name": "Birds 1.2.1",
+            "imagePath": "images/pets/fish.jpg"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Fish 1.3",
+        "imagePath": "images/pets/homecat.png",
+        "subSubcategories": [
+          {
+            "name": "Fish 1.3.1",
+            "imagePath": "images/pets/fish.jpg"
+          },
+          {
+            "name": "Fish 1.3.2",
+            "imagePath": "images/pets/fish.jpg"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  },
+  {
+    "name": "Small Pet",
+    "imagePath": "images/pets/homesmallpets.png",
+    "subcategories": [
+      {
+        "name": "Small Pet 1",
+        "imagePath": "images/pets/homesmallpets.png",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Small Pet 1.2",
+        "imagePath": "images/pets/homesmallpets.png",
+        "subSubcategories": [
+          {
+            "name": "Small Pet 1.2.1",
+            "imagePath": "images/pets/homesmallpets.png"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Small Pet 1.3",
+        "imagePath": "images/pets/homesmallpets.png",
+        "subSubcategories": [
+          {
+            "name": "Small Pet 1.3.1",
+            "imagePath": "images/pets/homesmallpets.png"
+          },
+          {
+            "name": "Small Pet 1.3.2",
+            "imagePath": "images/pets/homesmallpets.png"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  },
+  {
+    "name": "Reptiles",
+    "imagePath": "images/pets/reptiles.jpg",
+    "subcategories": [
+      {
+        "name": "Reptiles 1",
+        "imagePath": "images/pets/reptiles.jpg",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Reptiles 1.2",
+        "imagePath": "images/pets/reptiles.jpg",
+        "subSubcategories": [
+          {
+            "name": "Reptiles 1.2.1",
+            "imagePath": "images/pets/reptiles.jpg"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Reptiles 1.3",
+        "imagePath": "images/pets/reptiles.jpg",
+        "subSubcategories": [
+          {
+            "name": "Reptiles 1.3.1",
+            "imagePath": "images/pets/reptiles.jpg"
+          },
+          {
+            "name": "Reptiles 1.3.2",
+            "imagePath": "images/pets/reptiles.jpg"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  },
+  {
+    "name": "Chicken",
+    "imagePath": "images/pets/chicken.png",
+    "subcategories": [
+      {
+        "name": "Chicken 1",
+        "imagePath": "images/pets/chicken.png",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Chicken 1.2",
+        "imagePath": "images/pets/chicken.png",
+        "subSubcategories": [
+          {
+            "name": "Chicken 1.2.1",
+            "imagePath": "images/pets/chicken.png"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Chicken 1.3",
+        "imagePath": "images/pets/chicken.png",
+        "subSubcategories": [
+          {
+            "name": "Chicken 1.3.1",
+            "imagePath": "images/pets/chicken.png"
+          },
+          {
+            "name": "Chicken 1.3.2",
+            "imagePath": "images/pets/chicken.png"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  },
+  {
+    "name": "Live Stock",
+    "imagePath": "images/pets/livestock.png",
+    "subcategories": [
+      {
+        "name": "Live Stock 1",
+        "imagePath": "images/pets/livestock.png",
+        "subSubcategories": [],
+        "isExpanded": false
+      },
+      {
+        "name": "Live Stock 1.2",
+        "imagePath": "images/pets/livestock.png",
+        "subSubcategories": [
+          {
+            "name": "Live Stock 1.2.1",
+            "imagePath": "images/pets/livestock.png"
+          }
+        ],
+        "isExpanded": false
+      },
+      {
+        "name": "Live Stock 1.3",
+        "imagePath": "images/pets/livestock.png",
+        "subSubcategories": [
+          {
+            "name": "Live Stock 1.3.1",
+            "imagePath": "images/pets/livestock.png"
+          },
+          {
+            "name": "Live Stock 1.3.2",
+            "imagePath": "images/pets/livestock.png"
+          }
+        ],
+        "isExpanded": false
+      }
+    ]
+  }
+]

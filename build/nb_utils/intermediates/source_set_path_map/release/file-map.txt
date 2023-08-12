@@ -1,0 +1,14 @@
+com.nb.nb_utils-jetified-window-1.0.0-beta04-0 /Users/furqanarshad/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/res
+com.nb.nb_utils-jetified-annotation-experimental-1.1.0-1 /Users/furqanarshad/.gradle/caches/transforms-3/6c0c163cc77ae6c91f9f7dfcd179c29c/transformed/jetified-annotation-experimental-1.1.0/res
+com.nb.nb_utils-core-1.6.0-2 /Users/furqanarshad/.gradle/caches/transforms-3/7e9df2ac2213a6bd3cef0f2f27870d79/transformed/core-1.6.0/res
+com.nb.nb_utils-jetified-window-java-1.0.0-beta04-3 /Users/furqanarshad/.gradle/caches/transforms-3/ae81e06d24c799147c26814497a2a305/transformed/jetified-window-java-1.0.0-beta04/res
+com.nb.nb_utils-main-4 /Users/furqanarshad/.pub-cache/hosted/pub.dev/nb_utils-6.0.0/android/src/main/res
+com.nb.nb_utils-release-5 /Users/furqanarshad/.pub-cache/hosted/pub.dev/nb_utils-6.0.0/android/src/release/res
+com.nb.nb_utils-packaged_res-6 /Users/furqanarshad/Documents/flutter_Proects/pets/build/connectivity_plus/intermediates/packaged_res/release
+com.nb.nb_utils-packaged_res-7 /Users/furqanarshad/Documents/flutter_Proects/pets/build/fluttertoast/intermediates/packaged_res/release
+com.nb.nb_utils-pngs-8 /Users/furqanarshad/Documents/flutter_Proects/pets/build/nb_utils/generated/res/pngs/release
+com.nb.nb_utils-resValues-9 /Users/furqanarshad/Documents/flutter_Proects/pets/build/nb_utils/generated/res/resValues/release
+com.nb.nb_utils-rs-10 /Users/furqanarshad/Documents/flutter_Proects/pets/build/nb_utils/generated/res/rs/release
+com.nb.nb_utils-mergeReleaseResources-11 /Users/furqanarshad/Documents/flutter_Proects/pets/build/nb_utils/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.nb.nb_utils-mergeReleaseResources-12 /Users/furqanarshad/Documents/flutter_Proects/pets/build/nb_utils/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.nb.nb_utils-merged_res-13 /Users/furqanarshad/Documents/flutter_Proects/pets/build/nb_utils/intermediates/merged_res/release

@@ -1,0 +1,256 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.juber_car_booking"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="22"
+8-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:4:5-67
+11-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:5:5-79
+12-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:5:22-76
+13    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+13-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:6:5-79
+13-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:6:22-76
+14    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+14-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:7:5-81
+14-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:7:22-78
+15    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+15-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:8:5-72
+15-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:8:22-69
+16
+17    <queries>
+17-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:10:5-15:15
+18        <intent>
+18-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:11:9-14:18
+19            <action android:name="android.intent.action.DIAL" />
+19-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:12:13-65
+19-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:12:21-62
+20
+21            <data android:scheme="tel" />
+21-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:13:13-42
+21-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:13:19-39
+22        </intent>
+23    </queries>
+24
+25    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+25-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:9:5-81
+25-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:9:22-78
+26    <uses-permission android:name="android.permission.VIBRATE" />
+26-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:10:5-66
+26-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:10:22-63
+27    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+27-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:11:5-81
+27-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:11:22-78
+28    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+28-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:12:5-79
+28-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:12:22-76
+29    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+29-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:13:5-77
+29-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:13:22-74
+30    <uses-permission
+30-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:10:5-12:38
+31        android:name="android.permission.READ_EXTERNAL_STORAGE"
+31-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:11:9-64
+32        android:maxSdkVersion="32" />
+32-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:12:9-35
+33    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+33-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:13:5-76
+33-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:13:22-73
+34    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+34-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:14:5-75
+34-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:14:22-72
+35    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+35-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:15:5-75
+35-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:15:22-72
+36
+37    <permission
+37-->[androidx.core:core:1.9.0] /Users/furqanarshad/.gradle/caches/transforms-3/c2aff38445ebad8ddeaa989ecf50f56e/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+38        android:name="com.example.juber_car_booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+38-->[androidx.core:core:1.9.0] /Users/furqanarshad/.gradle/caches/transforms-3/c2aff38445ebad8ddeaa989ecf50f56e/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+39        android:protectionLevel="signature" />
+39-->[androidx.core:core:1.9.0] /Users/furqanarshad/.gradle/caches/transforms-3/c2aff38445ebad8ddeaa989ecf50f56e/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+40
+41    <uses-permission android:name="com.example.juber_car_booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+41-->[androidx.core:core:1.9.0] /Users/furqanarshad/.gradle/caches/transforms-3/c2aff38445ebad8ddeaa989ecf50f56e/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+41-->[androidx.core:core:1.9.0] /Users/furqanarshad/.gradle/caches/transforms-3/c2aff38445ebad8ddeaa989ecf50f56e/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+42
+43    <application
+44        android:name="android.app.Application"
+44-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:19:9-42
+45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+45-->[androidx.core:core:1.9.0] /Users/furqanarshad/.gradle/caches/transforms-3/c2aff38445ebad8ddeaa989ecf50f56e/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+46        android:icon="@mipmap/launcher_icon"
+46-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:20:9-45
+47        android:label="PetsQtr" >
+47-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:18:9-32
+48        <activity
+48-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:21:9-38:20
+49            android:name="com.example.juber_car_booking.MainActivity"
+49-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:22:13-41
+50            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+50-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:26:13-163
+51            android:exported="true"
+51-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:23:13-36
+52            android:hardwareAccelerated="true"
+52-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:27:13-47
+53            android:launchMode="singleTop"
+53-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:24:13-43
+54            android:theme="@style/LaunchTheme"
+54-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:25:13-47
+55            android:windowSoftInputMode="adjustResize" >
+55-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:28:13-55
+56            <meta-data
+56-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:30:13-33:17
+57                android:name="io.flutter.embedding.android.NormalTheme"
+57-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:31:15-70
+58                android:resource="@style/NormalTheme" />
+58-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:32:15-52
+59
+60            <intent-filter>
+60-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:34:13-37:29
+61                <action android:name="android.intent.action.MAIN" />
+61-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:35:17-68
+61-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:35:25-66
+62
+63                <category android:name="android.intent.category.LAUNCHER" />
+63-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:36:17-76
+63-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:36:27-74
+64            </intent-filter>
+65        </activity>
+66
+67        <meta-data
+67-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:40:9-42:33
+68            android:name="flutterEmbedding"
+68-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:41:13-44
+69            android:value="2" />
+69-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:42:13-30
+70        <meta-data
+70-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:44:8-46:70
+71            android:name="com.google.android.geo.API_KEY"
+71-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:45:12-57
+72            android:value="AIzaSyAHQ6IFG6maNOdEDxcrxl1Oo8YZTeap7Hw" />
+72-->/Users/furqanarshad/Documents/flutter_Proects/pets/android/app/src/main/AndroidManifest.xml:46:12-67
+73
+74        <receiver
+74-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:16:9-18:40
+75            android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver"
+75-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-91
+76            android:exported="false" />
+76-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:18:13-37
+77        <receiver
+77-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:19:9-21:40
+78            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+78-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:20:13-97
+79            android:exported="false" />
+79-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:21:13-37
+80        <receiver
+80-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:22:9-31:20
+81            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+81-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:23:13-101
+82            android:exported="false" >
+82-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:24:13-37
+83            <intent-filter>
+83-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:25:13-30:29
+84                <action android:name="android.intent.action.BOOT_COMPLETED" />
+84-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:26:17-79
+84-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:26:25-76
+85                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+85-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:27:17-84
+85-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:27:25-81
+86                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+86-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:28:17-82
+86-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:28:25-79
+87                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+87-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:29:17-82
+87-->[:flutter_local_notifications] /Users/furqanarshad/Documents/flutter_Proects/pets/build/flutter_local_notifications/intermediates/merged_manifest/release/AndroidManifest.xml:29:25-79
+88            </intent-filter>
+89        </receiver>
+90
+91        <activity
+91-->[:url_launcher_android] /Users/furqanarshad/Documents/flutter_Proects/pets/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-13:74
+92            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+92-->[:url_launcher_android] /Users/furqanarshad/Documents/flutter_Proects/pets/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-74
+93            android:exported="false"
+93-->[:url_launcher_android] /Users/furqanarshad/Documents/flutter_Proects/pets/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-37
+94            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+94-->[:url_launcher_android] /Users/furqanarshad/Documents/flutter_Proects/pets/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-71
+95
+96        <provider
+96-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:18:9-27:20
+97            android:name="com.crazecoder.openfile.FileProvider"
+97-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:19:13-64
+98            android:authorities="com.example.juber_car_booking.fileProvider.com.crazecoder.openfile"
+98-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:20:13-88
+99            android:exported="false"
+99-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:21:13-37
+100            android:grantUriPermissions="true" >
+100-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:22:13-47
+101            <meta-data
+101-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:24:13-26:53
+102                android:name="android.support.FILE_PROVIDER_PATHS"
+102-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:25:17-67
+103                android:resource="@xml/filepaths" />
+103-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:26:17-50
+104        </provider>
+105        <!--
+106           Declares a provider which allows us to store files to share in
+107           '.../caches/share_plus' and grant the receiving action access
+108        -->
+109        <provider
+109-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:15:9-23:20
+110            android:name="dev.fluttercommunity.plus.share.ShareFileProvider"
+110-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-77
+111            android:authorities="com.example.juber_car_booking.flutter.share_provider"
+111-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-74
+112            android:exported="false"
+112-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:18:13-37
+113            android:grantUriPermissions="true" >
+113-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:19:13-47
+114            <meta-data
+114-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:24:13-26:53
+115                android:name="android.support.FILE_PROVIDER_PATHS"
+115-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:25:17-67
+116                android:resource="@xml/flutter_share_file_paths" />
+116-->[:open_filex] /Users/furqanarshad/Documents/flutter_Proects/pets/build/open_filex/intermediates/merged_manifest/release/AndroidManifest.xml:26:17-50
+117        </provider>
+118        <!--
+119           This manifest declared broadcast receiver allows us to use an explicit
+120           Intent when creating a PendingItent to be informed of the user's choice
+121        -->
+122        <receiver
+122-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:28:9-34:20
+123            android:name="dev.fluttercommunity.plus.share.SharePlusPendingIntent"
+123-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:29:13-82
+124            android:exported="false" >
+124-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-37
+125            <intent-filter>
+125-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:31:13-33:29
+126                <action android:name="EXTRA_CHOSEN_COMPONENT" />
+126-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:32:17-65
+126-->[:share_plus] /Users/furqanarshad/Documents/flutter_Proects/pets/build/share_plus/intermediates/merged_manifest/release/AndroidManifest.xml:32:25-62
+127            </intent-filter>
+128        </receiver>
+129
+130        <uses-library
+130-->[androidx.window:window:1.0.0-beta04] /Users/furqanarshad/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+131            android:name="androidx.window.extensions"
+131-->[androidx.window:window:1.0.0-beta04] /Users/furqanarshad/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+132            android:required="false" />
+132-->[androidx.window:window:1.0.0-beta04] /Users/furqanarshad/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+133        <uses-library
+133-->[androidx.window:window:1.0.0-beta04] /Users/furqanarshad/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+134            android:name="androidx.window.sidecar"
+134-->[androidx.window:window:1.0.0-beta04] /Users/furqanarshad/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+135            android:required="false" />
+135-->[androidx.window:window:1.0.0-beta04] /Users/furqanarshad/.gradle/caches/transforms-3/25cee5f028ac2a6b79fd6278ff5b59e2/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+136    </application>
+137
+138</manifest>
